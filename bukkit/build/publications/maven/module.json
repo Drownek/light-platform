@@ -1,0 +1,153 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "eu.okaeri",
+    "module": "light-platform-bukkit",
+    "version": "0.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.5"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 18,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "light-platform-bukkit-0.1.jar",
+          "url": "light-platform-bukkit-0.1.jar",
+          "size": 56736,
+          "sha512": "f30a281660d06c2b08f5d029877bf075e9f3c513e619957b2683370c0e817ad7ca50553be69ba2f60439c4d086da379c47ea19feaa17fd46b77e4ed2ea977a63",
+          "sha256": "4b33f63b2039f56002f26c88dd698e067e0929735e72b31046e8dd9a3874e53d",
+          "sha1": "d8d0b03e4cc131a962b081431e193d2bc1601adc",
+          "md5": "1be5e1fd7736ab7dbfeb8a9756a0737e"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 18,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "eu.okaeri",
+          "module": "light-platform-core",
+          "version": {
+            "requires": "0.1"
+          }
+        },
+        {
+          "group": "dev.rollczi",
+          "module": "litecommands-core",
+          "version": {
+            "requires": "3.4.2"
+          }
+        },
+        {
+          "group": "dev.rollczi",
+          "module": "litecommands-bukkit",
+          "version": {
+            "requires": "3.4.2"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-platform-minecraft",
+          "version": {
+            "requires": "0.4.36"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-commons-bukkit",
+          "version": {
+            "requires": "0.2.27"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-tasker-bukkit",
+          "version": {
+            "requires": "3.0.1-beta.1"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-configs-yaml-bukkit",
+          "version": {
+            "requires": "5.0.3"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-configs-serdes-bukkit",
+          "version": {
+            "requires": "5.0.3"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-configs-serdes-okaeri-bukkit",
+          "version": {
+            "requires": "5.0.3"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-placeholders-bukkit",
+          "version": {
+            "requires": "5.1.0"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-placeholders-bukkit-placeholderapi",
+          "version": {
+            "requires": "5.1.0"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-placeholders-reflect",
+          "version": {
+            "requires": "5.1.0"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-i18n-minecraft-bungee",
+          "version": {
+            "requires": "5.1.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "light-platform-bukkit-0.1.jar",
+          "url": "light-platform-bukkit-0.1.jar",
+          "size": 56736,
+          "sha512": "f30a281660d06c2b08f5d029877bf075e9f3c513e619957b2683370c0e817ad7ca50553be69ba2f60439c4d086da379c47ea19feaa17fd46b77e4ed2ea977a63",
+          "sha256": "4b33f63b2039f56002f26c88dd698e067e0929735e72b31046e8dd9a3874e53d",
+          "sha1": "d8d0b03e4cc131a962b081431e193d2bc1601adc",
+          "md5": "1be5e1fd7736ab7dbfeb8a9756a0737e"
+        }
+      ]
+    }
+  ]
+}

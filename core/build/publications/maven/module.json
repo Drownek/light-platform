@@ -1,0 +1,146 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "eu.okaeri",
+    "module": "light-platform-core",
+    "version": "0.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.5"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 18,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "light-platform-core-0.1.jar",
+          "url": "light-platform-core-0.1.jar",
+          "size": 73226,
+          "sha512": "61932cdd51b00b5900b9c414a127272666cad8c2564d83af28bb9ffc350758d69dc88a97e8f1a33c67f1306d8bf60ffea9dc745ae03a77e34b5830530e2d56fa",
+          "sha256": "601f5c3c3f44f52c231519a864f0304f3c9dd397269efdedbeec793f84399cbd",
+          "sha1": "40845307366f6520aec01de380c31f3b93df9517",
+          "md5": "6e2afdbcf859759ba46b7ed476e6a794"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 18,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "dev.rollczi",
+          "module": "litecommands-core",
+          "version": {
+            "requires": "3.4.2"
+          }
+        },
+        {
+          "group": "dev.rollczi",
+          "module": "litecommands-bukkit",
+          "version": {
+            "requires": "3.4.2"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-persistence-core",
+          "version": {
+            "requires": "2.0.4"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-commons-core",
+          "version": {
+            "requires": "0.2.27"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-configs-core",
+          "version": {
+            "requires": "5.0.3"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-configs-serdes-commons",
+          "version": {
+            "requires": "5.0.3"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-configs-serdes-okaeri",
+          "version": {
+            "requires": "5.0.3"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-configs-validator-okaeri",
+          "version": {
+            "requires": "5.0.3"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-i18n-configs",
+          "version": {
+            "requires": "5.1.1"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-injector",
+          "version": {
+            "requires": "2.1.0"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-validator",
+          "version": {
+            "requires": "2.0.4"
+          }
+        },
+        {
+          "group": "eu.okaeri",
+          "module": "okaeri-tasker-core",
+          "version": {
+            "requires": "3.0.1-beta.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "light-platform-core-0.1.jar",
+          "url": "light-platform-core-0.1.jar",
+          "size": 73226,
+          "sha512": "61932cdd51b00b5900b9c414a127272666cad8c2564d83af28bb9ffc350758d69dc88a97e8f1a33c67f1306d8bf60ffea9dc745ae03a77e34b5830530e2d56fa",
+          "sha256": "601f5c3c3f44f52c231519a864f0304f3c9dd397269efdedbeec793f84399cbd",
+          "sha1": "40845307366f6520aec01de380c31f3b93df9517",
+          "md5": "6e2afdbcf859759ba46b7ed476e6a794"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>okaeri-platform</artifactId>
+    <groupId>eu.okaeri</groupId>
+    <version>0.4.37</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>okaeri-platform-core</artifactId>
+
+  <dependencies>
+    <!-- litecommands -->
+    <dependency>
+      <groupId>dev.rollczi</groupId>
+      <artifactId>litecommands-core</artifactId>
+      <version>3.4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>dev.rollczi</groupId>
+      <artifactId>litecommands-bukkit</artifactId>
+      <version>3.4.2</version>
+    </dependency>
+
+    <!-- persistence -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-persistence-core</artifactId>
+      <version>${library.okaeri-persistence.version}</version>
+    </dependency>
+
+    <!-- commands -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-commands-core</artifactId>
+      <version>${library.okaeri-commands.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-commands-injector</artifactId>
+      <version>${library.okaeri-commands.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>eu.okaeri</groupId>
+          <artifactId>okaeri-injector</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-commands-acl</artifactId>
+      <version>${library.okaeri-commands.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-commands-validator</artifactId>
+      <version>${library.okaeri-commands.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>eu.okaeri</groupId>
+          <artifactId>okaeri-validator</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-commands-tasker</artifactId>
+      <version>${library.okaeri-commands.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>eu.okaeri</groupId>
+          <artifactId>okaeri-tasker</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- commons -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-commons-core</artifactId>
+      <version>${library.okaeri-commons.version}</version>
+    </dependency>
+
+    <!-- configs -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-configs-core</artifactId>
+      <version>${library.okaeri-configs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-configs-serdes-commons</artifactId>
+      <version>${library.okaeri-configs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-configs-serdes-okaeri</artifactId>
+      <version>${library.okaeri-configs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-configs-validator-okaeri</artifactId>
+      <version>${library.okaeri-configs.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>eu.okaeri</groupId>
+          <artifactId>okaeri-validator</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- i18n -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-i18n-configs</artifactId>
+      <version>${library.okaeri-i18n.version}</version>
+    </dependency>
+
+    <!-- injector -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-injector</artifactId>
+      <version>${library.okaeri-injector.version}</version>
+    </dependency>
+
+    <!-- validator -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-validator</artifactId>
+      <version>${library.okaeri-validator.version}</version>
+    </dependency>
+
+    <!-- tasker -->
+    <dependency>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-tasker-core</artifactId>
+      <version>${library.okaeri-tasker.version}</version>
+    </dependency>
+  </dependencies>
+
+</project>
