@@ -53,7 +53,7 @@ public class ScheduledComponentResolver implements ComponentResolver {
         this.scheduler.runTimer(runnable, delay, rate, async);
 
         long took = System.currentTimeMillis() - start;
-        if (okPlugin.isDebug()) {
+
             creator.log(ComponentHelper.buildComponentMessage()
                 .type("Added scheduled")
                 .name(manifest.getSource() == BeanSource.METHOD ? manifest.getName() : manifest.getType().getSimpleName())
@@ -62,7 +62,7 @@ public class ScheduledComponentResolver implements ComponentResolver {
                 .meta("rate", rate)
                 .meta("async", async)
                 .build());
-        }
+
         creator.increaseStatistics("scheduled", 1);
 
         return runnable;
