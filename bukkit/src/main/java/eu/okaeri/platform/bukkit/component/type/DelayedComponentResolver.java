@@ -51,7 +51,7 @@ public class DelayedComponentResolver implements ComponentResolver {
         this.scheduler.runLater(runnable, delay, async);
 
         long took = System.currentTimeMillis() - start;
-        if (okPlugin.isDebug()) {
+
             creator.log(ComponentHelper.buildComponentMessage()
                 .type("Added delayed")
                 .name(manifest.getSource() == BeanSource.METHOD ? manifest.getName() : manifest.getType().getSimpleName())
@@ -59,7 +59,7 @@ public class DelayedComponentResolver implements ComponentResolver {
                 .meta("time", delay)
                 .meta("async", async)
                 .build());
-        }
+
         creator.increaseStatistics("delayed", 1);
 
         return runnable;

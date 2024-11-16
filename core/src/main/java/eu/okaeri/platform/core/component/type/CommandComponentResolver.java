@@ -2,6 +2,7 @@ package eu.okaeri.platform.core.component.type;
 
 import dev.rollczi.litecommands.LiteCommandsBuilder;
 import dev.rollczi.litecommands.annotations.command.Command;
+import dev.rollczi.litecommands.annotations.command.RootCommand;
 import eu.okaeri.injector.Injector;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.core.component.ComponentHelper;
@@ -16,7 +17,7 @@ public class CommandComponentResolver implements ComponentResolver {
 
     @Override
     public boolean supports(@NonNull Class<?> type) {
-        return type.getAnnotation(Command.class) != null;
+        return type.getAnnotation(Command.class) != null || type.getAnnotation(RootCommand.class) != null;
     }
 
     @Override

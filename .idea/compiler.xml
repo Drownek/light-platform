@@ -2,10 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="light-platform-bukkit" />
+        <module name="bukkit-utils" />
         <module name="okaeri-platform-core" />
         <module name="okaeri-platform-bukkit" />
       </profile>
@@ -14,6 +17,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bukkit-utils" options="-parameters" />
+      <module name="light-platform-bukkit" options="-parameters" />
       <module name="okaeri-platform-bukkit" options="-parameters" />
       <module name="okaeri-platform-core" options="-parameters" />
     </option>

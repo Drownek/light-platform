@@ -32,6 +32,7 @@ import lombok.Setter;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
+import pl.drownek.util.TextUtil;
 
 import java.io.File;
 import java.util.Arrays;
@@ -45,7 +46,6 @@ public class OkaeriBukkitPlugin extends JavaPlugin implements OkaeriPlatform {
     private @Getter @Setter Injector injector;
     private @Getter @Setter ComponentCreator creator;
     private ExecutionPlan plan;
-    private @Getter @Setter boolean debug;
 
     public OkaeriBukkitPlugin() {
         super();
@@ -62,10 +62,9 @@ public class OkaeriBukkitPlugin extends JavaPlugin implements OkaeriPlatform {
 
     @Override
     public void plan(@NonNull ExecutionPlan plan) {
-
         plan.add(PRE_SETUP, new InjectorSetupTask());
-        plan.add(PRE_SETUP, new CommandSetupTask());
         plan.add(PRE_SETUP, (ExecutionTask<OkaeriBukkitPlugin>) platform -> {
+            platform.registerInjectable("base64ItemStacks", false);
             platform.registerInjectable("server", platform.getServer());
             platform.registerInjectable("dataFolder", platform.getDataFolder());
             platform.registerInjectable("jarFile", platform.getFile());
@@ -80,6 +79,7 @@ public class OkaeriBukkitPlugin extends JavaPlugin implements OkaeriPlatform {
             platform.registerInjectable("defaultPlaceholdersFactory", new SimplePlaceholdersFactory());
             platform.registerInjectable("i18nLocaleProvider", new PlayerLocaleProvider());
         });
+        plan.add(PRE_SETUP, new CommandSetupTask());
 
         plan.add(SETUP, new BukkitPlaceholderApiTask());
         plan.add(SETUP, new CreatorSetupTask(BukkitComponentCreator.class, BukkitCreatorRegistry.class));
@@ -97,6 +97,7 @@ public class OkaeriBukkitPlugin extends JavaPlugin implements OkaeriPlatform {
     @Override
     @Deprecated
     public void onEnable() {
+        TextUtil.init(this);
         // execute using plan
         this.log("Loading " + this.getClass().getSimpleName());
         ExecutionResult result = ExecutionPlan.dispatch(this);

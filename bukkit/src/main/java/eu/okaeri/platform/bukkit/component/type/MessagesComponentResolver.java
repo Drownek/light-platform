@@ -232,7 +232,7 @@ public class MessagesComponentResolver implements ComponentResolver {
 
             long took = System.currentTimeMillis() - start;
             if ((beanClazz != I18nCommandsMessages.class) || DEBUG) {
-                if (okPlugin.isDebug()) {
+
                     creator.log(ComponentHelper.buildComponentMessage()
                         .type("Loaded messages")
                         .name(beanClazz.getSimpleName())
@@ -241,7 +241,7 @@ public class MessagesComponentResolver implements ComponentResolver {
                         .meta("provider", provider.getSimpleName())
                         .footer("  > " + loadedLocales.stream().map(Locale::toString).collect(Collectors.joining(", ")))
                         .build());
-                }
+
             }
 
             manifest.setName(path);
