@@ -96,6 +96,14 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/Drownek/light-platform</url>
+        </repository>
+    </distributionManagement>
+
+
     <repositories>
         <repository>
             <id>storehouse-releases</id>
