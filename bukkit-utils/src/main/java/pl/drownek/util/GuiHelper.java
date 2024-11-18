@@ -26,7 +26,7 @@ public final class GuiHelper {
     }
 
     public static PaginatedGui defaultPaginatedGui(String title, Consumer<PaginatedGui> consumer) {
-        return defaultPaginatedGui(title, () -> {}, consumer);
+        return defaultPaginatedGui(title, null, consumer);
     }
 
     public static PaginatedGui defaultPaginatedGui(String title, Runnable backAction, Consumer<PaginatedGui> consumer) {
@@ -38,7 +38,13 @@ public final class GuiHelper {
             gui.previous();
             updatePageTitle(title, gui);
         }));
-        gui.setItem(6, 5, ItemStackBuilder.of(Material.ARROW).asGuiItem((inventoryClickEvent) -> backAction.run()));
+        gui.setItem(6, 5, ItemStackBuilder.of(Material.ARROW).asGuiItem((inventoryClickEvent) -> {
+            if (backAction == null) {
+                inventoryClickEvent.getWhoClicked().closeInventory();
+                return;
+            }
+            backAction.run();
+        }));
         gui.setItem(6, 6, ItemStackBuilder.of(GuiHelper.NEXT_ITEM).asGuiItem((inventoryClickEvent) -> {
             gui.next();
             updatePageTitle(title, gui);
