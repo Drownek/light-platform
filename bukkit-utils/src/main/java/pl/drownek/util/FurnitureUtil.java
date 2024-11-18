@@ -18,11 +18,14 @@ public class FurnitureUtil {
 
     public void removeAllFurnituresInLocation(final @NonNull Location location) {
         if (location.getWorld() == null) {
-            throw new RuntimeException("Location does not have a world!");
+            return;
         }
 
         location.getWorld().getEntitiesByClass(ArmorStand.class).stream()
-            .filter(armorStand -> LocationUtil.isSimilarExceptRotation(armorStand.getLocation(), location))
+            .filter(armorStand -> {
+                Location armorStandBlockLocation = armorStand.getLocation().getBlock().getLocation();
+                return LocationUtil.isSimilarExceptRotation(armorStandBlockLocation, location.getBlock().getLocation());
+            })
             .forEach(Entity::remove);
     }
 }
