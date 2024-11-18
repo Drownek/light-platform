@@ -38,7 +38,7 @@ public final class GuiHelper {
             gui.previous();
             updatePageTitle(title, gui);
         }));
-        gui.setItem(6, 5, ItemStackBuilder.of(Material.ARROW).asGuiItem((inventoryClickEvent) -> {
+        gui.setItem(6, 5, ItemStackBuilder.of(GuiHelper.BACK_ITEM).asGuiItem((inventoryClickEvent) -> {
             if (backAction == null) {
                 inventoryClickEvent.getWhoClicked().closeInventory();
                 return;
