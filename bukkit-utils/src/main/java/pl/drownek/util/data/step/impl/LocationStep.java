@@ -27,6 +27,7 @@ public class LocationStep extends Step<Location> {
                 if (!event.getPlayer().equals(targetPlayer)) {
                     return;
                 }
+                event.setCancelled(true);
 
                 callback.accept(this, targetPlayer.getLocation());
             }
