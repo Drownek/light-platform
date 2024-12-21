@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="light-platform-bukkit" />
+        <module name="okaeri-platform-bungee" />
         <module name="bukkit-utils" />
         <module name="okaeri-platform-core" />
         <module name="okaeri-platform-bukkit" />
@@ -22,6 +23,7 @@
       <module name="bukkit-utils" options="-parameters" />
       <module name="light-platform-bukkit" options="-parameters" />
       <module name="okaeri-platform-bukkit" options="-parameters" />
+      <module name="okaeri-platform-bungee" options="-parameters" />
       <module name="okaeri-platform-core" options="-parameters" />
     </option>
   </component>
