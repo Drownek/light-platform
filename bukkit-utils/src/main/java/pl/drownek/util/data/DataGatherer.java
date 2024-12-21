@@ -10,11 +10,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
 import pl.drownek.util.CommandUtil;
 import pl.drownek.util.TextUtil;
 import pl.drownek.util.data.step.Step;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +32,7 @@ public class DataGatherer {
         "<click:run_command:/datagatherer-no><hover:show_text:Kliknij, aby ponownie ustawić>Powtórz krok</hover></click>" +
         "]"
     );
+    public static final String TIMEOUT_MESSAGE = "Czas na akcje wygasł!";
     public static final String CANCEL_MESSAGE = "<click:run_command:/datagatherer-exit><hover:show_text:Kliknij, by anulować><dark_green>[Anuluj]</hover></click>";
 
     private final Plugin plugin;
@@ -43,6 +47,10 @@ public class DataGatherer {
     private final @Nullable Runnable cancelAction;
     private final boolean displaySetValues;
     private final boolean displaySuccessMessage;
+    private final boolean cancelOnTimeout;
+    private final Duration timeoutDuration;
+    private Instant startTime;
+    private BukkitTask timeoutTask;
 
     DataGatherer(Plugin plugin,
                  List<Step<?>> steps,
@@ -52,7 +60,9 @@ public class DataGatherer {
                  boolean confirmActions,
                  @Nullable Runnable cancelAction,
                  boolean displaySetValues,
-                 boolean displaySuccessMessage) {
+                 boolean displaySuccessMessage,
+                 boolean cancelOnTimeout,
+                 Duration timeoutDuration) {
         this.plugin = plugin;
         this.steps = steps;
         this.startAction = startAction;
@@ -62,6 +72,8 @@ public class DataGatherer {
         this.displaySetValues = displaySetValues;
         this.displaySuccessMessage = displaySuccessMessage;
         this.cancelAction = cancelAction;
+        this.cancelOnTimeout = cancelOnTimeout;
+        this.timeoutDuration = timeoutDuration;
     }
 
     public static DataGathererBuilder builder(Plugin plugin) {
@@ -78,6 +90,14 @@ public class DataGatherer {
 
         if (this.startAction != null) {
             this.startAction.run();
+        }
+
+        if (cancelOnTimeout) {
+            timeoutTask = this.plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
+                if (Instant.now().isAfter(this.startTime.plus(this.timeoutDuration))) {
+                    endGatherer(player, true);
+                }
+            }, 20L, 20L);
         }
 
         registerListener(new Listener() {
@@ -115,6 +135,8 @@ public class DataGatherer {
     }
 
     public <T> void handleCurrentStep(Player player) {
+        this.startTime = Instant.now();
+
         Step<T> step = (Step<T>) this.steps.get(this.currentStep);
 
         TextUtil.adventure.player(player).sendMessage(MiniMessage.miniMessage().deserialize("<green>" + step.getInfo() + " " + CANCEL_MESSAGE));
@@ -181,17 +203,28 @@ public class DataGatherer {
             afterEachStepAction.accept(currentStep);
         }
         if (++currentStep >= steps.size()) {
-            unregister();
+            endGatherer(player, false);
+        } else {
+            handleCurrentStep(player);
+        }
+    }
+
+    private void endGatherer(Player player, boolean timeout) {
+        unregister();
+        if (timeout) {
+            TextUtil.message(player, TIMEOUT_MESSAGE);
+            if (timeoutTask != null) {
+                timeoutTask.cancel();
+            }
+        } else {
             if (endAction != null) {
                 Bukkit.getScheduler().runTask(this.plugin, endAction);
             }
             if (displaySuccessMessage) {
                 TextUtil.message(player, CommandUtil.SUCCESS_MESSAGE);
             }
-            DataGathererManager.playersInDataGatherer.remove(player);
-        } else {
-            handleCurrentStep(player);
         }
+        DataGathererManager.playersInDataGatherer.remove(player);
     }
 
     public static class DataGathererBuilder {
@@ -205,9 +238,21 @@ public class DataGatherer {
         private boolean confirmActions = true;
         private boolean displaySetValues = true;
         private boolean displaySuccessMessage = true;
+        private boolean cancelOnTimeout = false;
+        private Duration timeoutDuration = Duration.ofMinutes(1);
 
         DataGathererBuilder(Plugin plugin) {
             this.plugin = plugin;
+        }
+
+        public DataGathererBuilder cancelOnTimeout() {
+            this.cancelOnTimeout = true;
+            return this;
+        }
+
+        public DataGathererBuilder timeout(Duration timeoutDuration) {
+            this.timeoutDuration = timeoutDuration;
+            return this;
         }
 
         public DataGathererBuilder withoutConfirm() {
@@ -264,7 +309,9 @@ public class DataGatherer {
                 this.confirmActions,
                 this.cancelAction,
                 this.displaySetValues,
-                this.displaySuccessMessage);
+                this.displaySuccessMessage,
+                this.cancelOnTimeout,
+                this.timeoutDuration);
         }
     }
 }

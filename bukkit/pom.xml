@@ -34,8 +34,15 @@
         <!-- core -->
         <dependency>
             <groupId>eu.okaeri</groupId>
-            <artifactId>okaeri-platform-minecraft</artifactId>
+            <artifactId>okaeri-platform-core</artifactId>
             <version>0.4.37</version>
+        </dependency>
+
+        <!-- persistence -->
+        <dependency>
+            <groupId>eu.okaeri</groupId>
+            <artifactId>okaeri-persistence-flat</artifactId>
+            <version>${library.okaeri-persistence.version}</version>
         </dependency>
 
         <!-- commons -->

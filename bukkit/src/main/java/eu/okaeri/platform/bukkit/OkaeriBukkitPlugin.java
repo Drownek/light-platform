@@ -92,6 +92,7 @@ public class OkaeriBukkitPlugin extends JavaPlugin implements OkaeriPlatform {
 
         plan.add(SHUTDOWN, new CloseableShutdownTask(Persistence.class));
         plan.add(SHUTDOWN, platform -> platform.getInjector().get("commands", LiteCommands.class).ifPresent(LiteCommands::unregister));
+        plan.add(SHUTDOWN, platform -> TextUtil.shutdown());
     }
 
     @Override

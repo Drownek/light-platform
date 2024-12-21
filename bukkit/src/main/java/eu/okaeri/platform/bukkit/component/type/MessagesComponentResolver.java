@@ -20,7 +20,6 @@ import eu.okaeri.platform.core.component.creator.ComponentResolver;
 import eu.okaeri.platform.core.component.manifest.BeanManifest;
 import eu.okaeri.platform.core.i18n.message.MessageAssembler;
 import eu.okaeri.platform.core.placeholder.PlaceholdersFactory;
-import eu.okaeri.platform.minecraft.commands.I18nCommandsMessages;
 import lombok.NonNull;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -231,7 +230,7 @@ public class MessagesComponentResolver implements ComponentResolver {
             }
 
             long took = System.currentTimeMillis() - start;
-            if ((beanClazz != I18nCommandsMessages.class) || DEBUG) {
+            if (DEBUG) {
 
                     creator.log(ComponentHelper.buildComponentMessage()
                         .type("Loaded messages")

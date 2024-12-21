@@ -29,6 +29,12 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>12.1.0</version>
+        </dependency>
+
         <!-- commons -->
         <dependency>
             <groupId>eu.okaeri</groupId>

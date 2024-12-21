@@ -176,4 +176,8 @@ public class GuiItemInfo extends OkaeriConfig {
     public void setGuiItem(BaseGui gui, Map<String, Object> replacements, GuiAction<InventoryClickEvent> event) {
         gui.setItem(this.position, this.asGuiItem(replacements, event));
     }
+
+    public GuiItemInfo replicate() {
+        return new GuiItemInfo(this);
+    }
 }

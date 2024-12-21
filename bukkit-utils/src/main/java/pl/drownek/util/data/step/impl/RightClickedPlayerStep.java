@@ -31,6 +31,9 @@ public class RightClickedPlayerStep extends Step<Player> {
                 if (!player.equals(targetPlayer) || !(event.getRightClicked() instanceof Player clicked)) {
                     return;
                 }
+                if (player.hasMetadata("NPC")) {
+                    return;
+                }
                 callback.accept(this, clicked);
             }
         };
