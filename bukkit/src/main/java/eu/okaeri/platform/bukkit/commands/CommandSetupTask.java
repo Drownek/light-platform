@@ -2,6 +2,7 @@ package eu.okaeri.platform.bukkit.commands;
 
 import dev.rollczi.litecommands.LiteCommandsBuilder;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import dev.rollczi.litecommands.bukkit.LiteBukkitSettings;
 import dev.rollczi.litecommands.message.LiteMessages;
 import dev.rollczi.litecommands.schematic.Schematic;
@@ -10,6 +11,7 @@ import eu.okaeri.platform.bukkit.util.ChatUtil;
 import eu.okaeri.platform.core.OkaeriPlatform;
 import eu.okaeri.platform.core.plan.ExecutionTask;
 import org.bukkit.command.CommandSender;
+import pl.drownek.util.TextUtil;
 
 import java.util.UUID;
 
@@ -67,6 +69,11 @@ public class CommandSetupTask implements ExecutionTask<OkaeriPlatform> {
             for (String scheme : schematic.all()) {
                 sender.sendMessage(ChatUtil.color("&8 - &7" + scheme));
             }
+        });
+
+        // No permission
+        builder.message(LiteMessages.MISSING_PERMISSIONS, (invocation, missingPermissions) -> {
+            return "&cNie masz uprawnień do wykonania tej czynności (" + missingPermissions.asJoinedText() + ")";
         });
 
         platform.getInjector().registerInjectable("commandsBuilder", builder);

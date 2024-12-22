@@ -9,16 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>okaeri-platform-bungee</artifactId>
+    <artifactId>light-platform-bungee</artifactId>
 
     <dependencies>
-        <!-- utils -->
-        <dependency>
-            <groupId>eu.okaeri</groupId>
-            <artifactId>bukkit-utils</artifactId>
-            <version>0.4.37</version>
-        </dependency>
-
         <!-- litecommands -->
         <dependency>
             <groupId>dev.rollczi</groupId>
@@ -27,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>dev.rollczi</groupId>
-            <artifactId>litecommands-bukkit</artifactId>
+            <artifactId>litecommands-bungeecord</artifactId>
             <version>3.4.2</version>
         </dependency>
 
@@ -36,6 +29,13 @@
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-platform-core</artifactId>
             <version>0.4.37</version>
+        </dependency>
+
+        <!-- persistence -->
+        <dependency>
+            <groupId>eu.okaeri</groupId>
+            <artifactId>okaeri-persistence-flat</artifactId>
+            <version>${library.okaeri-persistence.version}</version>
         </dependency>
 
         <!-- tasker -->
@@ -55,20 +55,6 @@
             <groupId>eu.okaeri</groupId>
             <artifactId>okaeri-configs-serdes-bungee</artifactId>
             <version>${library.okaeri-configs.version}</version>
-        </dependency>
-
-        <!-- messages -->
-        <dependency>
-            <groupId>eu.okaeri</groupId>
-            <artifactId>okaeri-placeholders-bungee</artifactId>
-            <version>${library.okaeri-placeholders.version}</version>
-        </dependency>
-
-        <!-- i18n -->
-        <dependency>
-            <groupId>eu.okaeri</groupId>
-            <artifactId>okaeri-i18n-minecraft-bungee</artifactId>
-            <version>${library.okaeri-i18n.version}</version>
         </dependency>
 
         <!-- bungeecord -->

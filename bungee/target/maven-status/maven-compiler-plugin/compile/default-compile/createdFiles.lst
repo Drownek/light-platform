@@ -1,0 +1,15 @@
+eu\okaeri\platform\bungee\component\BungeeCreatorRegistry.class
+eu\okaeri\platform\bungee\plan\BungeeExternalResourceProviderSetupTask.class
+eu\okaeri\platform\bungee\plan\CommandSetupTask.class
+eu\okaeri\platform\bungee\annotation\Scheduled.class
+eu\okaeri\platform\bungee\component\type\DelayedComponentResolver.class
+eu\okaeri\platform\bungee\plan\BukkitCommandsBuildTask.class
+eu\okaeri\platform\bungee\component\BungeeComponentCreator.class
+eu\okaeri\platform\bungee\util\TextUtil.class
+eu\okaeri\platform\bungee\component\type\ScheduledComponentResolver.class
+eu\okaeri\platform\bungee\annotation\Delayed.class
+eu\okaeri\platform\bungee\persistence\YamlBungeePersistence.class
+eu\okaeri\platform\bungee\component\type\ListenerComponentResolver.class
+eu\okaeri\platform\bungee\OkaeriBungeePlugin.class
+eu\okaeri\platform\bungee\scheduler\PlatformScheduler.class
+eu\okaeri\platform\bungee\plan\BungeeSchedulerShutdownTask.class

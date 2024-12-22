@@ -4,7 +4,6 @@ import eu.okaeri.injector.Injector;
 import eu.okaeri.injector.annotation.Inject;
 import eu.okaeri.platform.bungee.component.type.DelayedComponentResolver;
 import eu.okaeri.platform.bungee.component.type.ListenerComponentResolver;
-import eu.okaeri.platform.bungee.component.type.MessagesComponentResolver;
 import eu.okaeri.platform.bungee.component.type.ScheduledComponentResolver;
 import eu.okaeri.platform.core.component.creator.ComponentCreatorRegistry;
 import eu.okaeri.platform.core.component.type.*;
@@ -19,7 +18,6 @@ public class BungeeCreatorRegistry extends ComponentCreatorRegistry {
         this.register(DelayedComponentResolver.class);
         this.register(DocumentCollectionComponentResolver.class);
         this.register(ListenerComponentResolver.class);
-        this.register(MessagesComponentResolver.class);
         this.register(CommandComponentResolver.class);
         this.register(ScheduledComponentResolver.class);
         // generic last
