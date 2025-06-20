@@ -1,0 +1,54 @@
+plugins {
+    `java-library`
+    id("maven-publish")
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name = "spigot-repo"
+        url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    }
+    maven {
+        name = "minebench-repo"
+        url = uri("https://repo.minebench.de/")
+    }
+    maven("https://jitpack.io")
+    maven("https://libraries.minecraft.net/")
+}
+
+dependencies {
+    compileOnly("com.mojang:authlib:1.5.25")
+    api("me.drownek:bukkit-utils:1.0.3")
+
+    // core
+    api(project(":light-platform-core"))
+
+    // persistence
+    api("eu.okaeri:okaeri-persistence-flat:${Versions.OKAERI_PERSISTENCE_VERSION}")
+
+    // commons + tasker
+    api("eu.okaeri:okaeri-commons-bukkit:${Versions.OKAERI_COMMONS_VERSION}")
+    api("eu.okaeri:okaeri-tasker-bukkit:${Versions.OKAERI_TASKER_VERSION}")
+
+    // configs
+    api("eu.okaeri:okaeri-configs-yaml-bukkit:${Versions.OKAERI_CONFIGS_VERSION}")
+    api("eu.okaeri:okaeri-configs-serdes-bukkit:${Versions.OKAERI_CONFIGS_VERSION}")
+    api("eu.okaeri:okaeri-configs-serdes-okaeri-bukkit:${Versions.OKAERI_CONFIGS_VERSION}")
+
+    // Spigot API
+    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
+
+    api("eu.okaeri:okaeri-configs-serdes-okaeri:${Versions.OKAERI_CONFIGS_VERSION}")
+    api("eu.okaeri:okaeri-injector:${Versions.OKAERI_INJECTOR_VERSION}")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
+            from(components["java"])
+        }
+    }
+}
