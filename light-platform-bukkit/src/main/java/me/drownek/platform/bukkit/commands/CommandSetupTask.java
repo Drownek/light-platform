@@ -1,6 +1,7 @@
 package me.drownek.platform.bukkit.commands;
 
 import dev.rollczi.litecommands.LiteCommandsBuilder;
+import dev.rollczi.litecommands.adventure.bukkit.platform.LiteAdventurePlatformExtension;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitSettings;
 import dev.rollczi.litecommands.message.LiteMessages;
@@ -9,6 +10,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import me.drownek.platform.bukkit.util.ChatUtil;
 import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.plan.ExecutionTask;
+import me.drownek.util.TextUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
@@ -19,6 +21,13 @@ public class CommandSetupTask implements ExecutionTask<LightPlatform> {
     @Override
     public void execute(LightPlatform platform) {
         LiteCommandsBuilder<CommandSender, LiteBukkitSettings, ?> builder = LiteBukkitFactory.builder();
+
+        builder.extension(new LiteAdventurePlatformExtension<>(TextUtil.adventure), configuration -> configuration
+            .miniMessage(true) // (<red>, <gradient:red:blue>, <#ff0000>, etc.)
+            .legacyColor(true) // (&c, &a, etc.)
+            .colorizeArgument(true) // colorize (@Arg Component)
+            .serializer(TextUtil.miniMessage) // custom serializer
+        );
 
         // Arguments
         builder.argument(OfflinePlayer.class, new OfflinePlayerArgument());
