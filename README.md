@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.drownek:light-platform-bukkit:2.0.1")
+    implementation("com.github.drownek:light-platform:2.0.1")
 }
 ```
 ### Gradle (Groovy)
@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.drownek:light-platform-bukkit:2.0.1'
+    implementation 'com.github.drownek:light-platform:2.0.1'
 }
 ```
 ### Maven
@@ -56,7 +56,7 @@ dependencies {
 <dependencies>
     <dependency>
         <groupId>com.github.drownek</groupId>
-        <artifactId>light-platform-bukkit</artifactId>
+        <artifactId>light-platform</artifactId>
         <version>2.0.1</version>
     </dependency>
 </dependencies>
