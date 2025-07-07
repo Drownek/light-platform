@@ -23,6 +23,45 @@ Also, my own [bukkit-utils](https://github.com/Drownek/bukkit-utils) are bundled
 
 The original project is licensed under the MIT License, which is retained in this repository.
 
+## 📦 Installation
+### Gradle (Kotlin DSL)
+```kotlin
+repositories {
+    maven("https://jitpack.io")
+}
+
+dependencies {
+    implementation("com.github.drownek:light-platform-bukkit:2.0.1")
+}
+```
+### Gradle (Groovy)
+```groovy
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.drownek:light-platform-bukkit:2.0.1'
+}
+```
+### Maven
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>com.github.drownek</groupId>
+        <artifactId>light-platform-bukkit</artifactId>
+        <version>2.0.1</version>
+    </dependency>
+</dependencies>
+```
+
 ## Usage/Examples
 You can look at an example plugin that shows basic functionality like a database, LiteCommands usage, and injector.
 
