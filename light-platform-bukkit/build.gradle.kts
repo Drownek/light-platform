@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     compileOnly("com.mojang:authlib:1.5.25")
-    api("me.drownek:bukkit-utils:1.0.4")
+    api("com.github.Drownek:bukkit-utils:1.0.4")
 
     // core
     api(project(":light-platform-core"))
