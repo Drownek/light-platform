@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/light-platform-bukkit" />
             <option value="$PROJECT_DIR$/light-platform-core" />
+            <option value="$PROJECT_DIR$/light-platform-example" />
           </set>
         </option>
       </GradleProjectSettings>

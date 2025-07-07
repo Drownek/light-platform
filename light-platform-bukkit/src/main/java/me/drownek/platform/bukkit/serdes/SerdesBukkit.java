@@ -10,7 +10,6 @@ import eu.okaeri.configs.yaml.bukkit.serdes.transformer.StringEnchantmentTransfo
 import eu.okaeri.configs.yaml.bukkit.serdes.transformer.StringPotionEffectTypeTransformer;
 import eu.okaeri.configs.yaml.bukkit.serdes.transformer.StringWorldTransformer;
 import lombok.NonNull;
-import me.drownek.util.AudibleMessageSerializer;
 
 public class SerdesBukkit implements OkaeriSerdesPack {
     public SerdesBukkit() {
@@ -26,14 +25,5 @@ public class SerdesBukkit implements OkaeriSerdesPack {
         registry.register(new StringEnchantmentTransformer());
         registry.register(new StringPotionEffectTypeTransformer());
         registry.register(new StringWorldTransformer());
-        whenClass("AudibleMessageSerializer", () -> registry.register(new AudibleMessageSerializer()));
-    }
-
-    private static void whenClass(@NonNull String name, @NonNull Runnable runnable) {
-        try {
-            Class.forName(name);
-            runnable.run();
-        } catch (ClassNotFoundException ignored) {
-        }
     }
 }

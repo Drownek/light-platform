@@ -10,7 +10,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import me.drownek.platform.bukkit.util.ChatUtil;
 import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.plan.ExecutionTask;
-import me.drownek.util.TextUtil;
+import me.drownek.util.message.TextUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 

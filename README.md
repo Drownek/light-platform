@@ -6,7 +6,7 @@ A platform library for creating Minecraft plugins with ease.
 
 ## 🚀 About This Project
 
-This library includes a lightweight, Spring Boot–like class management system:
+This library includes a lightweight, Spring-Boot-like class management system:
 - It uses reflection to scan the project tree for annotated classes and automatically injects them into a simple dependency container.
 - Other components can then easily access and use these injected classes — making development more modular, clean, and intuitive.
 
@@ -15,16 +15,16 @@ This project uses code from [okaeri-platform](https://github.com/OkaeriPoland/ok
 Significant changes have been made, including:
 
 - Moving from Maven to Gradle
-- Adding [LiteCommands](https://github.com/Rollczi/LiteCommands) support
+- Adding [LiteCommands](https://github.com/Rollczi/LiteCommands) support in place of okaeri-commands
 - Modified serdes for better ItemStack support
 - And some other features to speed up plugin development even more.
 
-Also, my own [bukkit-utils]() **(TODO)** are bundled with the platform
+Also, my own [bukkit-utils](https://github.com/Drownek/bukkit-utils) are bundled with the platform
 
 The original project is licensed under the MIT License, which is retained in this repository.
 
 ## Usage/Examples
-**(TODO)**
+You can look at an example plugin that shows basic functionality like a database, LiteCommands usage, and injector.
 
 ## 📜 License
 

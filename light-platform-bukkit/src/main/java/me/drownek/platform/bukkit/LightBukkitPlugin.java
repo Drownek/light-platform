@@ -28,6 +28,7 @@ import me.drownek.platform.core.plan.task.BeanManifestCreateTask;
 import me.drownek.platform.core.plan.task.BeanManifestExecuteTask;
 import me.drownek.platform.core.plan.task.CreatorSetupTask;
 import me.drownek.platform.core.plan.task.InjectorSetupTask;
+import me.drownek.util.BukkitUtilsSerdes;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
@@ -71,7 +72,7 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
             platform.registerInjectable("tasker", BukkitTasker.newPool(platform));
             platform.registerInjectable("pluginManager", platform.getServer().getPluginManager());
             platform.registerInjectable("defaultConfigurerProvider", (ConfigurerProvider) YamlBukkitConfigurer::new);
-            platform.registerInjectable("defaultConfigurerSerdes", new Class[]{SerdesCommons.class, SerdesOkaeri.class, SerdesBukkit.class, SerdesOkaeriBukkit.class, SerdesRangeSection.class});
+            platform.registerInjectable("defaultConfigurerSerdes", new Class[]{SerdesCommons.class, SerdesOkaeri.class, SerdesBukkit.class, SerdesOkaeriBukkit.class, SerdesRangeSection.class, BukkitUtilsSerdes.class});
         });
         plan.add(PRE_SETUP, new CommandSetupTask());
 

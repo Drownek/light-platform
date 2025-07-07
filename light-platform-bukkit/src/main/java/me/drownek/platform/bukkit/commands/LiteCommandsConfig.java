@@ -10,7 +10,7 @@ import dev.rollczi.litecommands.schematic.Schematic;
 import dev.rollczi.litecommands.time.DurationParser;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
-import me.drownek.util.TextUtil;
+import me.drownek.util.message.TextUtil;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
