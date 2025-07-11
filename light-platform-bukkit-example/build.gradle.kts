@@ -50,7 +50,7 @@ dependencies {
 }
 
 tasks.shadowJar {
-    archiveFileName.set("light-platform-example-${project.version}.jar")
+    archiveFileName.set("light-platform-bukkit-example-${project.version}.jar")
 
     exclude(
         "org/intellij/lang/annotations/**",

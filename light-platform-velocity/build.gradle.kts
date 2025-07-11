@@ -1,0 +1,46 @@
+plugins {
+    `java-library`
+    id("maven-publish")
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
+}
+
+dependencies {
+    // core
+    api(project(":light-platform-core"))
+
+    api("dev.rollczi:litecommands-velocity:3.4.2")
+
+    // adventure
+    api("net.kyori:adventure-api:4.23.0")
+    api("net.kyori:adventure-text-serializer-legacy:4.23.0")
+    api("net.kyori:adventure-text-minimessage:4.23.0")
+
+    // tasker
+    api("eu.okaeri:okaeri-tasker-velocity:${Versions.OKAERI_TASKER_VERSION}")
+
+    // configs
+    api("eu.okaeri:okaeri-configs-yaml-snakeyaml:${Versions.OKAERI_CONFIGS_VERSION}") {
+        exclude(group = "org.yaml", module = "snakeyaml")
+    }
+    api("eu.okaeri:okaeri-configs-serdes-adventure:${Versions.OKAERI_CONFIGS_VERSION}")
+
+    // velocity
+    compileOnly("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
+            from(components["java"])
+        }
+    }
+}

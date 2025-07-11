@@ -22,6 +22,8 @@ dependencies {
     compileOnly("com.mojang:authlib:1.5.25")
     api("com.github.Drownek:bukkit-utils:1.0.4")
 
+    api("dev.rollczi:litecommands-bukkit:3.4.2")
+
     // core
     api(project(":light-platform-core"))
 
