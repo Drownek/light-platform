@@ -3,4 +3,10 @@ plugins {
 }
 
 rootProject.name = "light-platform"
-include("light-platform-core", "light-platform-bukkit", "light-platform-bukkit-example", "light-platform-velocity", "light-platform-velocity-example")
+include(
+    "core",
+    "bukkit",
+    "bukkit-example",
+    "velocity",
+    "velocity-example"
+)

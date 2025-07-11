@@ -14,14 +14,14 @@ repositories {
 
 dependencies {
     // core
-    api(project(":light-platform-core"))
+    api(project(":core"))
 
     api("dev.rollczi:litecommands-velocity:3.4.2")
 
-    // adventure
-    api("net.kyori:adventure-api:4.23.0")
-    api("net.kyori:adventure-text-serializer-legacy:4.23.0")
-    api("net.kyori:adventure-text-minimessage:4.23.0")
+//    // adventure
+//    api("net.kyori:adventure-api:4.23.0")
+//    api("net.kyori:adventure-text-serializer-legacy:4.23.0")
+//    api("net.kyori:adventure-text-minimessage:4.23.0")
 
     // tasker
     api("eu.okaeri:okaeri-tasker-velocity:${Versions.OKAERI_TASKER_VERSION}")
@@ -42,5 +42,11 @@ publishing {
             println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])
         }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }

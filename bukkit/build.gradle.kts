@@ -25,7 +25,7 @@ dependencies {
     api("dev.rollczi:litecommands-bukkit:3.4.2")
 
     // core
-    api(project(":light-platform-core"))
+    api(project(":core"))
 
     // persistence
     api("eu.okaeri:okaeri-persistence-flat:${Versions.OKAERI_PERSISTENCE_VERSION}")

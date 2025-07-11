@@ -26,7 +26,7 @@ dependencies {
     compileOnly("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
     annotationProcessor("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
 
-    implementation(project(":light-platform-velocity"))
+    implementation(project(":velocity"))
 
     implementation("eu.okaeri:okaeri-configs-json-simple:5.0.6")
     implementation("eu.okaeri:okaeri-persistence-jdbc:3.0.1-beta.2")
