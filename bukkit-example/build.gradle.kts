@@ -26,15 +26,6 @@ bukkit {
     version = "${project.version}"
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven("https://jitpack.io")
-    maven("https://storehouse.okaeri.eu/repository/maven-public/")
-    maven("https://repo.panda-lang.org/releases")
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-}
-
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
 

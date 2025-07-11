@@ -3,21 +3,6 @@ plugins {
     id("maven-publish")
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven {
-        name = "spigot-repo"
-        url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    }
-    maven {
-        name = "minebench-repo"
-        url = uri("https://repo.minebench.de/")
-    }
-    maven("https://jitpack.io")
-    maven("https://libraries.minecraft.net/")
-}
-
 dependencies {
     compileOnly("com.mojang:authlib:1.5.25")
     api("com.github.Drownek:bukkit-utils:1.0.4")

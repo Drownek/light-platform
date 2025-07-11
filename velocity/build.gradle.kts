@@ -3,15 +3,6 @@ plugins {
     id("maven-publish")
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven {
-        name = "papermc"
-        url = uri("https://repo.papermc.io/repository/maven-public/")
-    }
-}
-
 dependencies {
     // core
     api(project(":core"))

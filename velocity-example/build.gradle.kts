@@ -7,15 +7,6 @@ plugins {
 group = "me.drownek"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven("https://jitpack.io")
-    maven("https://storehouse.okaeri.eu/repository/maven-public/")
-    maven("https://repo.panda-lang.org/releases")
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-}
-
 tasks {
     runVelocity {
         velocityVersion("3.3.0-SNAPSHOT")
