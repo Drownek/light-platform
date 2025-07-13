@@ -37,14 +37,12 @@ public class CommandComponentResolver implements ComponentResolver {
         commands.commands(command);
 
         long took = System.currentTimeMillis() - start;
-        boolean showRegisteredComponents = injector.getOrThrow("showRegisteredComponents", Boolean.class);
-        if (showRegisteredComponents) {
-            creator.log(ComponentHelper.buildComponentMessage()
+        creator.debug(ComponentHelper.buildComponentMessage()
                 .type("Added command")
                 .name(command.getClass().getSimpleName())
                 .took(took)
                 .build());
-        }
+
         creator.increaseStatistics("commands", 1);
 
         return command;

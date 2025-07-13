@@ -24,7 +24,7 @@ public class VelocityComponentCreator extends ComponentCreator {
     }
 
     @Override
-    public void log(@NonNull String message) {
-        Arrays.stream(message.split("\n")).forEach(line -> this.plugin.log("- " + line));
+    public void debug(@NonNull String message) {
+        Arrays.stream(message.split("\n")).forEach(line -> this.plugin.debug("- " + line));
     }
 }

@@ -11,14 +11,10 @@ public class VelocityCommandsBuildTask implements ExecutionTask<LightVelocityPlu
     @SuppressWarnings("unchecked")
     @Override
     public void execute(LightVelocityPlugin platform) {
-        boolean showRegisteredComponents = platform.getInjector().getOrThrow("showRegisteredComponents", Boolean.class);
-
         platform.getInjector().get("commandsBuilder", LiteCommandsBuilder.class).ifPresent(liteCommandsBuilder -> {
             LiteCommands<CommandSource> build = liteCommandsBuilder.build();
             platform.getInjector().registerInjectable("commands", build);
-            if (showRegisteredComponents) {
-                platform.getCreator().log("Built LiteCommands");
-            }
+            platform.getCreator().debug("Built LiteCommands");
         });
     }
 }

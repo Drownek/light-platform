@@ -49,7 +49,7 @@ public class ScheduledComponentResolver implements ComponentResolver {
         this.scheduler.schedule(runnable, delay, rate, timeUnit);
 
         long took = System.currentTimeMillis() - start;
-        creator.log(ComponentHelper.buildComponentMessage()
+        creator.debug(ComponentHelper.buildComponentMessage()
             .type("Added scheduled")
             .name(manifest.getSource() == BeanSource.METHOD ? manifest.getName() : manifest.getType().getSimpleName())
             .took(took)

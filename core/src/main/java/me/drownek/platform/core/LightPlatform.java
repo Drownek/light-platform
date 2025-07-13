@@ -2,8 +2,11 @@ package me.drownek.platform.core;
 
 import eu.okaeri.injector.Injector;
 import lombok.NonNull;
+import me.drownek.platform.core.annotation.DebugLogging;
 import me.drownek.platform.core.component.creator.ComponentCreator;
 import me.drownek.platform.core.plan.ExecutionPlan;
+
+import java.util.function.Consumer;
 
 public interface LightPlatform {
 
@@ -30,4 +33,14 @@ public interface LightPlatform {
 
     // setup
     void plan(@NonNull ExecutionPlan plan);
+
+    Consumer<String> logDebugAction();
+
+    default void debug(@NonNull String message) {
+        logDebugAction().accept(message);
+    }
+
+    default boolean isDebugLogging() {
+        return this.getClass().isAnnotationPresent(DebugLogging.class);
+    }
 }

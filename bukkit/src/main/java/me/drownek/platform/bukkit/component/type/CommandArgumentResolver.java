@@ -52,14 +52,11 @@ public class CommandArgumentResolver implements ComponentResolver {
         commands.argument(argumentType, argumentResolver);
 
         long took = System.currentTimeMillis() - start;
-        boolean showRegisteredComponents = injector.getOrThrow("showRegisteredComponents", Boolean.class);
-        if (showRegisteredComponents) {
-            creator.log(ComponentHelper.buildComponentMessage()
+        creator.debug(ComponentHelper.buildComponentMessage()
                 .type("Registered ArgumentResolver")
                 .name(argumentResolver.getClass().getSimpleName())
                 .took(took)
                 .build());
-        }
         return instance;
     }
 

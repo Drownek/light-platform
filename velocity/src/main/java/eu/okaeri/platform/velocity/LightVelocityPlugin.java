@@ -37,6 +37,7 @@ import org.slf4j.Logger;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 import static me.drownek.platform.core.plan.ExecutionPhase.*;
 
@@ -91,14 +92,16 @@ public class LightVelocityPlugin implements LightPlatform {
         plan.add(SHUTDOWN, new CloseableShutdownTask(Persistence.class));
     }
 
+    @Override
+    public Consumer<String> logDebugAction() {
+        return this.getLogger()::info;
+    }
+
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
         // execute using plan
         ExecutionResult result = ExecutionPlan.dispatch(this);
-        boolean showRegisteredComponents = this.getInjector().getOrThrow("showRegisteredComponents", Boolean.class);
-        if (showRegisteredComponents) {
-            this.log(this.getCreator().getSummaryText(result.getTotalMillis()));
-        }
+        this.debug(this.getCreator().getSummaryText(result.getTotalMillis()));
         this.plan = result.getPlan();
     }
 

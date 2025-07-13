@@ -11,14 +11,11 @@ public class BukkitCommandsBuildTask implements ExecutionTask<LightBukkitPlugin>
     @SuppressWarnings("unchecked")
     @Override
     public void execute(LightBukkitPlugin platform) {
-        boolean showRegisteredComponents = platform.getInjector().getOrThrow("showRegisteredComponents", Boolean.class);
 
         platform.getInjector().get("commandsBuilder", LiteCommandsBuilder.class).ifPresent(liteCommandsBuilder -> {
             LiteCommands<CommandSender> build = liteCommandsBuilder.build();
             platform.getInjector().registerInjectable("commands", build);
-            if (showRegisteredComponents) {
-                platform.getCreator().log("Built LiteCommands");
-            }
+            platform.getCreator().debug("Built LiteCommands");
         });
     }
 }

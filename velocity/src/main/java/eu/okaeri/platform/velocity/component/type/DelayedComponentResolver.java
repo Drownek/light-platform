@@ -48,7 +48,7 @@ public class DelayedComponentResolver implements ComponentResolver {
         this.scheduler.delay(runnable, delay, timeUnit);
 
         long took = System.currentTimeMillis() - start;
-        creator.log(ComponentHelper.buildComponentMessage()
+        creator.debug(ComponentHelper.buildComponentMessage()
             .type("Added delayed")
             .name(manifest.getSource() == BeanSource.METHOD ? manifest.getName() : manifest.getType().getSimpleName())
             .took(took)

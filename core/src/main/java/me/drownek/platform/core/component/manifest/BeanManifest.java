@@ -180,7 +180,7 @@ public class BeanManifest {
                     throw new RuntimeException("Class failed to load (use 'exclusions = \"my.package.libs\"' for shaded dependencies?): " + resource, throwable);
                 }
                 if (creator.isComponent(clazz) && !LightPlatform.class.isAssignableFrom(clazz)) {
-                    if (DEBUG) creator.log("Scanned: " + clazz);
+                    if (DEBUG) creator.debug("Scanned: " + clazz);
                     return of(classLoader, clazz, creator, false);
                 }
                 return null;

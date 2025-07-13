@@ -39,12 +39,12 @@ public class DocumentCollectionComponentResolver implements ComponentResolver {
 
         long start = System.currentTimeMillis();
         DependsOn dependsOnPersistence = Arrays.stream(manifestType.getAnnotationsByType(DependsOn.class))
-            .filter(on -> on.type().isAssignableFrom(DocumentPersistence.class))
-            .findAny()
-            .orElseThrow(() -> new IllegalArgumentException("No @DependsOn for DocumentPersistence found on " + manifestType));
+                .filter(on -> on.type().isAssignableFrom(DocumentPersistence.class))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("No @DependsOn for DocumentPersistence found on " + manifestType));
 
         DocumentPersistence persistence = (DocumentPersistence) injector.getExact(dependsOnPersistence.name(), dependsOnPersistence.type())
-            .orElseThrow(() -> new IllegalArgumentException("No " + dependsOnPersistence.name() + " of " + dependsOnPersistence.type() + " found to create " + manifestType));
+                .orElseThrow(() -> new IllegalArgumentException("No " + dependsOnPersistence.name() + " of " + dependsOnPersistence.type() + " found to create " + manifestType));
 
         PersistenceCollection collection = PersistenceCollection.of(manifestType);
         persistence.registerCollection(collection);
@@ -55,15 +55,13 @@ public class DocumentCollectionComponentResolver implements ComponentResolver {
         DocumentRepository<?, ?> proxy = repositoryDeclaration.newProxy(persistence, collection, manifestType.getClassLoader());
 
         long took = System.currentTimeMillis() - start;
-        boolean showRegisteredComponents = injector.getOrThrow("showRegisteredComponents", Boolean.class);
-        if (showRegisteredComponents) {
-            creator.log(ComponentHelper.buildComponentMessage()
+        creator.debug(ComponentHelper.buildComponentMessage()
                 .type("Added persistence repository")
                 .name(manifestType.getSimpleName())
                 .took(took)
                 .meta("dependsOn", dependsOnPersistence.name() + "->" + dependsOnPersistence.type().getSimpleName())
                 .build());
-        }
+
         creator.increaseStatistics("persistenceRepositories", 1);
 
         return proxy;

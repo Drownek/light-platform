@@ -58,5 +58,5 @@ public abstract class ComponentCreator {
         return "= (" + statistics + ") [blocking: " + took + " ms]";
     }
 
-    public abstract void log(String message);
+    public abstract void debug(String message);
 }

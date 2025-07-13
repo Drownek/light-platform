@@ -35,6 +35,7 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 import static me.drownek.platform.core.plan.ExecutionPhase.*;
 
@@ -88,14 +89,16 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
     }
 
     @Override
+    public Consumer<String> logDebugAction() {
+        return this.getLogger()::info;
+    }
+
+    @Override
     @Deprecated
     public void onEnable() {
         // execute using plan
         ExecutionResult result = ExecutionPlan.dispatch(this);
-        boolean showRegisteredComponents = this.getInjector().getOrThrow("showRegisteredComponents", Boolean.class);
-        if (showRegisteredComponents) {
-            this.log(this.getCreator().getSummaryText(result.getTotalMillis()));
-        }
+        this.debug(this.getCreator().getSummaryText(result.getTotalMillis()));
         this.plan = result.getPlan();
     }
 

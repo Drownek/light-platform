@@ -59,13 +59,13 @@ public class ConfigurationComponentResolver implements ComponentResolver {
 
         try {
             Configurer configurer = (provider == Configuration.DEFAULT.class)
-                ? this.defaultConfigurerProvider.get()
-                : injector.createInstance(provider);
+                    ? this.defaultConfigurerProvider.get()
+                    : injector.createInstance(provider);
 
             OkaeriSerdesPack[] serdesPacks = Stream.concat(Stream.of(this.defaultConfigurerSerdes), Arrays.stream(configuration.serdes()))
-                .map(injector::createInstance)
-                .distinct()
-                .toArray(OkaeriSerdesPack[]::new);
+                    .map(injector::createInstance)
+                    .distinct()
+                    .toArray(OkaeriSerdesPack[]::new);
 
             String extension = configurer.getExtensions().isEmpty() ? "bin" : configurer.getExtensions().get(0);
             String resolvedPath = path.replace("{ext}", extension);
@@ -79,16 +79,15 @@ public class ConfigurationComponentResolver implements ComponentResolver {
             });
 
             long took = System.currentTimeMillis() - start;
-            boolean showRegisteredComponents = injector.getOrThrow("showRegisteredComponents", Boolean.class);
-            if (showRegisteredComponents) {
-                creator.log(ComponentHelper.buildComponentMessage()
+
+            creator.debug(ComponentHelper.buildComponentMessage()
                     .type("Loaded configuration")
                     .name(configType.getSimpleName())
                     .took(took)
                     .meta("path", path)
                     .meta("provider", provider.getSimpleName())
                     .build());
-            }
+
             creator.increaseStatistics("configs", 1);
 
             return config;

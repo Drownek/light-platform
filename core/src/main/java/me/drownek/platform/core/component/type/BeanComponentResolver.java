@@ -36,9 +36,8 @@ public class BeanComponentResolver implements ComponentResolver {
         Object result = ComponentHelper.invokeMethod(manifest, injector);
 
         long took = System.currentTimeMillis() - start;
-        boolean showRegisteredComponents = injector.getOrThrow("showRegisteredComponents", Boolean.class);
-        if (took > 1 && showRegisteredComponents) {
-            creator.log(ComponentHelper.buildComponentMessage()
+        if (took > 1) {
+            creator.debug(ComponentHelper.buildComponentMessage()
                 .type("Added generic bean")
                 .name(manifest.getName().isEmpty() ? manifest.getMethod().getName() : manifest.getName())
                 .took(took)

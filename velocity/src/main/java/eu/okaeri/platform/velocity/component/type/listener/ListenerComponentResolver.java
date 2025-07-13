@@ -42,7 +42,7 @@ public class ListenerComponentResolver implements ComponentResolver {
         this.proxy.getEventManager().register(this.plugin, instance);
 
         long took = System.currentTimeMillis() - start;
-        creator.log(ComponentHelper.buildComponentMessage()
+        creator.debug(ComponentHelper.buildComponentMessage()
             .type("Added listener")
             .name(instance.getClass().getSimpleName())
             .took(took)

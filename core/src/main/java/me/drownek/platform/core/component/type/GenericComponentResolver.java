@@ -48,9 +48,8 @@ public class GenericComponentResolver implements ComponentResolver {
         }
 
         long took = System.currentTimeMillis() - start;
-        boolean showRegisteredComponents = injector.getOrThrow("showRegisteredComponents", Boolean.class);
-        if (took > 1 && showRegisteredComponents) {
-            creator.log(ComponentHelper.buildComponentMessage()
+        if (took > 1) {
+            creator.debug(ComponentHelper.buildComponentMessage()
                 .type("Added generic component")
                 .name(manifest.getType().getSimpleName())
                 .took(took)
