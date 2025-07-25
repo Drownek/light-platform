@@ -21,6 +21,8 @@ public class ExamplePlugin extends LightBukkitPlugin {
         // Applying customized LiteCommands messages from built-in config that have to be added somewhere to use it
         messages.liteCommandsConfig.apply(commands);
         log("Plugin loaded successfully!");
+        // This will display message to the console if me.drownek.platform.core.annotation.DebugLogging annotation will be added to ExamplePlugin
+        debug("Test debug");
     }
 
     @Planned(SHUTDOWN)

@@ -6,6 +6,8 @@ import me.drownek.platform.core.annotation.DebugLogging;
 import me.drownek.platform.core.component.creator.ComponentCreator;
 import me.drownek.platform.core.plan.ExecutionPlan;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Consumer;
 
 public interface LightPlatform {
@@ -42,5 +44,9 @@ public interface LightPlatform {
 
     default boolean isDebugLogging() {
         return this.getClass().isAnnotationPresent(DebugLogging.class);
+    }
+
+    default List<String> getDependencies() {
+        return Collections.emptyList();
     }
 }

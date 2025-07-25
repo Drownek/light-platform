@@ -35,6 +35,7 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static me.drownek.platform.core.plan.ExecutionPhase.*;
@@ -96,6 +97,13 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
     @Override
     @Deprecated
     public void onEnable() {
+        HookManager hookManager = new HookManager(this);
+        List<String> missingDependencies = hookManager.getMissingDependencies();
+        if (!missingDependencies.isEmpty()) {
+            this.getLogger().warning("Missing dependencies: " + String.join(", ", missingDependencies));
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         // execute using plan
         ExecutionResult result = ExecutionPlan.dispatch(this);
         this.debug(this.getCreator().getSummaryText(result.getTotalMillis()));
