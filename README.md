@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.Drownek.light-platform:bukkit:2.0.2")
+    implementation("com.github.Drownek.light-platform:bukkit:2.0.3")
 }
 ```
 ### Gradle (Groovy)
@@ -45,7 +45,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.Drownek.light-platform:bukkit:2.0.2'
+    implementation 'com.github.Drownek.light-platform:bukkit:2.0.3'
 }
 ```
 ### Maven
@@ -61,7 +61,7 @@ dependencies {
     <dependency>
         <groupId>com.github.Drownek.light-platform</groupId>
         <artifactId>bukkit</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
     </dependency>
 </dependencies>
 ```
@@ -79,7 +79,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.Drownek.light-platform:velocity:2.0.2")
+    implementation("com.github.Drownek.light-platform:velocity:2.0.3")
 }
 ```
 ### Gradle (Groovy)
@@ -89,7 +89,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.Drownek.light-platform:velocity:2.0.2'
+    implementation 'com.github.Drownek.light-platform:velocity:2.0.3'
 }
 ```
 ### Maven
@@ -105,7 +105,7 @@ dependencies {
     <dependency>
         <groupId>com.github.Drownek.light-platform</groupId>
         <artifactId>velocity</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
     </dependency>
 </dependencies>
 ```
