@@ -1,6 +1,7 @@
 package me.drownek.platform.bukkit.component.type;
 
 import dev.rollczi.litecommands.LiteCommandsBuilder;
+import dev.rollczi.litecommands.argument.ArgumentKey;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
 import eu.okaeri.injector.Injector;
 import eu.okaeri.injector.annotation.Inject;
@@ -49,7 +50,12 @@ public class CommandArgumentResolver implements ComponentResolver {
         if (argumentType == null) {
             throw new RuntimeException("Cannot resolve argument type for " + instance.getClass().getName());
         }
-        commands.argument(argumentType, argumentResolver);
+        String argumentKey = argumentResolver.getClass().getAnnotation(CommandArgument.class).argumentKey();
+        if (argumentKey.isEmpty()) {
+            commands.argument(argumentType, argumentResolver);
+        } else {
+            commands.argument(argumentType, ArgumentKey.of(argumentKey), argumentResolver);
+        }
 
         long took = System.currentTimeMillis() - start;
         creator.debug(ComponentHelper.buildComponentMessage()
