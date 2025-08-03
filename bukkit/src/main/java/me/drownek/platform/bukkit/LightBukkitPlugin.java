@@ -33,7 +33,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -116,14 +115,6 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
         if (this.plan != null) {
             this.plan.execute(Arrays.asList(PRE_SHUTDOWN, SHUTDOWN, POST_SHUTDOWN));
         }
-    }
-
-    @Override
-    public List<String> getDependencies() {
-        List<String> deps = new ArrayList<>();
-        deps.addAll(getDescription().getDepend());
-        deps.addAll(getDescription().getSoftDepend());
-        return deps;
     }
 
     @Override

@@ -24,6 +24,7 @@ bukkit {
     name = "ExamplePlugin"
     author = "Drownek"
     version = "${project.version}"
+    softDepend = listOf("Vault")
 }
 
 dependencies {

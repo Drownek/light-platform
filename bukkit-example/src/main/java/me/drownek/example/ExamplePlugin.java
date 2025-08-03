@@ -35,6 +35,17 @@ public class ExamplePlugin extends LightBukkitPlugin {
         log("Plugin unloaded successfully!");
     }
 
+/*    // Requires specified plugins to be loaded at the moment of enabling out plugin.
+    // Great for usage if you really want to use PlugManX to reload plugins,
+    // as putting any `depend` will break on PlugManX reload command.
+    // But remember to still put `softDepend` in your plugin.yml to make those plugins load before yours!
+    @Override
+    public List<String> getDependencies() {
+        return List.of("ProtocolLib");
+    }*/
+
+    // Hook system, allows registering fallback and implementation for given hook interface.
+    // But remember to still put your plugin name in plugin.yml under `softDepend` to make those plugins load before yours!
     @Override
     public List<Hook<?>> getHooks() {
         return List.of(
