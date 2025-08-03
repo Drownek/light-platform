@@ -28,6 +28,7 @@ import lombok.Setter;
 import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.component.ComponentHelper;
 import me.drownek.platform.core.component.creator.ComponentCreator;
+import me.drownek.platform.core.dependency.DependencyManager;
 import me.drownek.platform.core.plan.ExecutionPlan;
 import me.drownek.platform.core.plan.ExecutionResult;
 import me.drownek.platform.core.plan.ExecutionTask;
@@ -37,6 +38,7 @@ import org.slf4j.Logger;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static me.drownek.platform.core.plan.ExecutionPhase.*;
@@ -81,6 +83,7 @@ public class LightVelocityPlugin implements LightPlatform {
         plan.add(PRE_SETUP, new CommandSetupTask(this.proxy));
 
         plan.add(SETUP, new CreatorSetupTask(VelocityComponentCreator.class, VelocityCreatorRegistry.class), "creator");
+        plan.add(SETUP, new HookSetupTask());
 
         plan.add(POST_SETUP, new VelocityExternalResourceProviderSetupTask());
         plan.add(POST_SETUP, new BeanManifestCreateTask());
@@ -99,6 +102,11 @@ public class LightVelocityPlugin implements LightPlatform {
 
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
+        DependencyManager dependencyManager = new DependencyManager(this);
+        List<String> missingDependencies = dependencyManager.getMissingDependencies();
+        if (!missingDependencies.isEmpty()) {
+            throw new RuntimeException("Missing dependencies: " + String.join(", ", missingDependencies));
+        }
         // execute using plan
         ExecutionResult result = ExecutionPlan.dispatch(this);
         this.debug(this.getCreator().getSummaryText(result.getTotalMillis()));
@@ -111,5 +119,10 @@ public class LightVelocityPlugin implements LightPlatform {
         if (this.plan != null) {
             this.plan.execute(Arrays.asList(PRE_SHUTDOWN, SHUTDOWN, POST_SHUTDOWN));
         }
+    }
+
+    @Override
+    public boolean isPluginEnabled(String pluginName) {
+        return getProxy().getPluginManager().isLoaded(pluginName);
     }
 }

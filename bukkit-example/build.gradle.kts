@@ -34,6 +34,9 @@ dependencies {
     implementation("eu.okaeri:okaeri-configs-json-simple:5.0.6")
     implementation("eu.okaeri:okaeri-persistence-jdbc:3.0.1-beta.2")
 
+    /* hooks */
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+
     /* lombok */
     val lombok = "1.18.32"
     compileOnly("org.projectlombok:lombok:$lombok")

@@ -21,19 +21,19 @@ import me.drownek.platform.bukkit.scheduler.PlatformScheduler;
 import me.drownek.platform.bukkit.serdes.SerdesBukkit;
 import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.component.creator.ComponentCreator;
+import me.drownek.platform.core.dependency.DependencyManager;
 import me.drownek.platform.core.plan.ExecutionPlan;
 import me.drownek.platform.core.plan.ExecutionResult;
 import me.drownek.platform.core.plan.ExecutionTask;
-import me.drownek.platform.core.plan.task.BeanManifestCreateTask;
-import me.drownek.platform.core.plan.task.BeanManifestExecuteTask;
-import me.drownek.platform.core.plan.task.CreatorSetupTask;
-import me.drownek.platform.core.plan.task.InjectorSetupTask;
+import me.drownek.platform.core.plan.task.*;
 import me.drownek.util.BukkitUtilsSerdes;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -79,6 +79,7 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
         plan.add(PRE_SETUP, new CommandSetupTask());
 
         plan.add(SETUP, new CreatorSetupTask(BukkitComponentCreator.class, BukkitCreatorRegistry.class));
+        plan.add(SETUP, new HookSetupTask());
 
         plan.add(POST_SETUP, new BukkitExternalResourceProviderSetupTask());
         plan.add(POST_SETUP, new BeanManifestCreateTask());
@@ -97,12 +98,10 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
     @Override
     @Deprecated
     public void onEnable() {
-        HookManager hookManager = new HookManager(this);
-        List<String> missingDependencies = hookManager.getMissingDependencies();
+        DependencyManager dependencyManager = new DependencyManager(this);
+        List<String> missingDependencies = dependencyManager.getMissingDependencies();
         if (!missingDependencies.isEmpty()) {
-            this.getLogger().warning("Missing dependencies: " + String.join(", ", missingDependencies));
-            this.getServer().getPluginManager().disablePlugin(this);
-            return;
+            throw new RuntimeException("Missing dependencies: " + String.join(", ", missingDependencies));
         }
         // execute using plan
         ExecutionResult result = ExecutionPlan.dispatch(this);
@@ -117,5 +116,18 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
         if (this.plan != null) {
             this.plan.execute(Arrays.asList(PRE_SHUTDOWN, SHUTDOWN, POST_SHUTDOWN));
         }
+    }
+
+    @Override
+    public List<String> getDependencies() {
+        List<String> deps = new ArrayList<>();
+        deps.addAll(getDescription().getDepend());
+        deps.addAll(getDescription().getSoftDepend());
+        return deps;
+    }
+
+    @Override
+    public boolean isPluginEnabled(String pluginName) {
+        return Bukkit.getPluginManager().isPluginEnabled(pluginName);
     }
 }

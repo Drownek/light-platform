@@ -15,6 +15,7 @@ import eu.okaeri.injector.annotation.Inject;
 import me.drownek.example.config.Messages;
 import me.drownek.example.config.PluginConfig;
 import me.drownek.example.data.User;
+import me.drownek.example.hook.VaultHook;
 import me.drownek.example.service.ExampleService;
 import me.drownek.util.WaitingTask;
 import org.bukkit.command.CommandSender;
@@ -35,6 +36,12 @@ public class ExampleCommand {
     private @Inject Messages messages;
     private @Inject Plugin plugin;
     private @Inject PluginConfig config;
+    private @Inject VaultHook vaultHook;
+
+    @Execute(name = "vault-hook")
+    void vaultHook(@Context CommandSender player) {
+        player.sendMessage(vaultHook.getClass().getSimpleName());
+    }
 
     @Async
     @Execute(name = "set-balance")

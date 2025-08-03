@@ -2,10 +2,15 @@ package me.drownek.example;
 
 import dev.rollczi.litecommands.LiteCommands;
 import me.drownek.example.config.Messages;
+import me.drownek.example.hook.VaultHookFallback;
+import me.drownek.example.hook.VaultHookImpl;
 import me.drownek.platform.bukkit.LightBukkitPlugin;
 import me.drownek.platform.core.annotation.Scan;
+import me.drownek.platform.core.dependency.Hook;
 import me.drownek.platform.core.plan.Planned;
 import org.bukkit.command.CommandSender;
+
+import java.util.List;
 
 import static me.drownek.platform.core.plan.ExecutionPhase.POST_STARTUP;
 import static me.drownek.platform.core.plan.ExecutionPhase.SHUTDOWN;
@@ -28,5 +33,12 @@ public class ExamplePlugin extends LightBukkitPlugin {
     @Planned(SHUTDOWN)
     void shutdown() {
         log("Plugin unloaded successfully!");
+    }
+
+    @Override
+    public List<Hook<?>> getHooks() {
+        return List.of(
+            new Hook<>("Vault", VaultHookImpl.class, VaultHookFallback.class)
+        );
     }
 }

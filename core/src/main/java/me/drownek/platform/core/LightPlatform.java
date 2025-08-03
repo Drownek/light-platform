@@ -4,6 +4,7 @@ import eu.okaeri.injector.Injector;
 import lombok.NonNull;
 import me.drownek.platform.core.annotation.DebugLogging;
 import me.drownek.platform.core.component.creator.ComponentCreator;
+import me.drownek.platform.core.dependency.Hook;
 import me.drownek.platform.core.plan.ExecutionPlan;
 
 import java.util.Collections;
@@ -39,7 +40,9 @@ public interface LightPlatform {
     Consumer<String> logDebugAction();
 
     default void debug(@NonNull String message) {
-        logDebugAction().accept(message);
+        if (isDebugLogging()) {
+            logDebugAction().accept(message);
+        }
     }
 
     default boolean isDebugLogging() {
@@ -49,4 +52,8 @@ public interface LightPlatform {
     default List<String> getDependencies() {
         return Collections.emptyList();
     }
+
+    default List<Hook<?>> getHooks() { return Collections.emptyList(); }
+
+    boolean isPluginEnabled(String pluginName);
 }
