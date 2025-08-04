@@ -36,25 +36,25 @@ public class CommandSetupTask implements ExecutionTask<LightPlatform> {
         builder.argumentSuggester(
             Integer.class,
             (invocation, argument, suggestionContext) ->
-                SuggestionResult.of("<" + argument.getKeyName() + ">")
+                SuggestionResult.of("<" + argument.getName() + ">")
         );
 
         builder.argumentSuggester(
             int.class,
             (invocation, argument, suggestionContext) ->
-                SuggestionResult.of("<" + argument.getKeyName() + ">")
+                SuggestionResult.of("<" + argument.getName() + ">")
         );
 
         builder.argumentSuggester(
             Float.class,
             (invocation, argument, suggestionContext) ->
-                SuggestionResult.of("<" + argument.getKeyName() + ">")
+                SuggestionResult.of("<" + argument.getName() + ">")
         );
 
         builder.argumentSuggester(
             float.class,
             (invocation, argument, suggestionContext) ->
-                SuggestionResult.of("<" + argument.getKeyName() + ">")
+                SuggestionResult.of("<" + argument.getName() + ">")
         );
 
         builder.argumentSuggester(UUID.class, (invocation, argument, suggestionContext) -> {
