@@ -5,9 +5,9 @@ plugins {
 
 dependencies {
     // litecommands
-    api("dev.rollczi:litecommands-core:3.4.2")
+    api("dev.rollczi:litecommands-core:3.10.3")
 
-    api("dev.rollczi:litecommands-adventure-platform:3.4.2")
+    api("dev.rollczi:litecommands-adventure-platform:3.10.3")
 
     // persistence
     api("eu.okaeri:okaeri-persistence-core:${Versions.OKAERI_PERSISTENCE_VERSION}")
