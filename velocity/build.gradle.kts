@@ -7,7 +7,7 @@ dependencies {
     // core
     api(project(":core"))
 
-    api("dev.rollczi:litecommands-velocity:3.4.2")
+    api("dev.rollczi:litecommands-velocity:3.10.3")
 
 //    // adventure
 //    api("net.kyori:adventure-api:4.23.0")
