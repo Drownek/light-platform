@@ -31,44 +31,40 @@ The original project is licensed under the MIT License, which is retained in thi
 <img width="552" height="294" alt="image" src="https://github.com/user-attachments/assets/a47c01a7-c36b-410b-8c60-47d7ed014a1c" />
 
 ```java
-        GuiItemInfo moneyDisplay = new GuiItemInfo(
-            13,
-            XMaterial.GOLD_INGOT,
-            "&6&lWithdraw Money",
-            Arrays.asList(
-                "&7Withdraw from your bank account",
-                "",
-                "&fCurrent Balance: &a$" + balance,
-                "&fWithdraw Amount: &e${AMOUNT}",
-                "&fRemaining: &a${REMAINING}",
-                "",
-                "&7Shift-click for ±$1000",
-                "&eClick to withdraw!"
-            )
-        );
+GuiItemInfo moneyDisplay = new GuiItemInfo(
+    13,
+    XMaterial.GOLD_INGOT,
+    "&6&lWithdraw Money",
+    Arrays.asList(
+        "&7Withdraw from your bank account",
+        "",
+        "&fCurrent Balance: &a$" + balance,
+        "&fWithdraw Amount: &e${VALUE}",
+        "&fRemaining: &a${REMAINING}",
+        "",
+        "&7Shift-click for ±$1000",
+        "&eClick to withdraw!"
+    )
+);
 
-        AmountSelectionGui.builder()
-            .title("&8Bank Withdrawal")
-            .displayItem(moneyDisplay)
-            .initialValue(100)
-            .minValue(1)
-            .maxValue(balance)
-            .increaseStep(100)
-            .decreaseStep(100)
-            .increaseStepShift(1000)
-            .decreaseStepShift(1000)
-            .rows(4)
-            .infoItemUpdater(context ->
-                context.originalInfoItem()
-                    .with("{AMOUNT}", context.currentAmount())
-                    .with("{REMAINING}", balance - context.currentAmount())
-            )
-            .onConfirm(amount -> {
-                player.sendMessage(TextUtil.color("&aWithdrew &e$" + amount + " &afrom your account!"));
-                // Add actual withdrawal logic here
-            })
-            .build()
-            .open(player);
+AmountSelectionGui.builder()
+    .title("&8Bank Withdrawal")
+    .displayItem(moneyDisplay)
+    .initialValue(100)
+    .minValue(1)
+    .maxValue(balance)
+    .increaseStep(100)
+    .decreaseStep(100)
+    .increaseStepShift(1000)
+    .decreaseStepShift(1000)
+    .rows(4)
+    .additionalPlaceholders(integer -> Map.of("{REMAINING}", balance - integer))
+    .onConfirm(amount -> {
+        player.sendMessage(TextUtil.color("&aWithdrew &e$" + amount + " &afrom your account!"));
+        // Add actual withdrawal logic here
+    })
+    .build()
+    .open(player);
 ```
 
 </details>
@@ -79,12 +75,12 @@ The original project is licensed under the MIT License, which is retained in thi
 ![waiting_task](https://github.com/user-attachments/assets/1ed3782e-2ac5-4b66-bd56-6a46eb7347d5)
 
 ```java
-        WaitingTask.builder()
-            .actionName("TEST")
-            .duration(Duration.ofSeconds(5))
-            .successAction(() -> player.sendMessage("!!!"))
-            .build()
-            .start(player);
+WaitingTask.builder()
+    .actionName("TEST")
+    .duration(Duration.ofSeconds(5))
+    .successAction(() -> player.sendMessage("!!!"))
+    .build()
+    .start(player);
 ```
 
 </details>
