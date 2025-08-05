@@ -30,6 +30,8 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            groupId = "me.drownek"
+            artifactId = "light-platform-velocity"
             println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])
         }

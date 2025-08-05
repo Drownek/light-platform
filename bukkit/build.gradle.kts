@@ -5,7 +5,8 @@ plugins {
 
 dependencies {
     compileOnly("com.mojang:authlib:1.5.25")
-    api("com.github.Drownek:bukkit-utils:1.0.4")
+    api("me.drownek:bukkit-utils:1.0.5")
+//    api("com.github.Drownek:bukkit-utils:VERSION") // <-- Uncomment this to use version from JitPack instead of maven local
 
     api("dev.rollczi:litecommands-bukkit:3.10.3")
 
@@ -34,6 +35,8 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            groupId = "me.drownek"
+            artifactId = "light-platform-bukkit"
             println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])
         }
