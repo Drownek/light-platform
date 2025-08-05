@@ -5,8 +5,8 @@ plugins {
 
 dependencies {
     compileOnly("com.mojang:authlib:1.5.25")
-    api("me.drownek:bukkit-utils:1.0.5")
-//    api("com.github.Drownek:bukkit-utils:VERSION") // <-- Uncomment this to use version from JitPack instead of maven local
+//    api("me.drownek:bukkit-utils:1.0.5") // <-- Uncomment this to use version from maven local instead of JitPack
+    api("com.github.Drownek:bukkit-utils:1.0.5")
 
     api("dev.rollczi:litecommands-bukkit:3.10.3")
 
