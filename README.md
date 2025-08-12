@@ -94,6 +94,7 @@ WaitingTask.builder()
 ```kotlin
 repositories {
     maven("https://jitpack.io")
+    maven("https://storehouse.okaeri.eu/repository/maven-releases/")
 }
 
 dependencies {
@@ -104,6 +105,7 @@ dependencies {
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
+    maven { url 'https://storehouse.okaeri.eu/repository/maven-releases/' }
 }
 
 dependencies {
@@ -116,6 +118,10 @@ dependencies {
     <repository>
         <id>jitpack.io</id>
         <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+        <id>okaeri-repo</id>
+        <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
     </repository>
 </repositories>
 
@@ -138,6 +144,7 @@ dependencies {
 ```kotlin
 repositories {
     maven("https://jitpack.io")
+    maven("https://storehouse.okaeri.eu/repository/maven-releases/")
 }
 
 dependencies {
@@ -148,6 +155,7 @@ dependencies {
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
+    maven { url 'https://storehouse.okaeri.eu/repository/maven-releases/' }
 }
 
 dependencies {
@@ -160,6 +168,10 @@ dependencies {
     <repository>
         <id>jitpack.io</id>
         <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+        <id>okaeri-repo</id>
+        <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
     </repository>
 </repositories>
 
