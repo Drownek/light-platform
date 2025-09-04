@@ -9,11 +9,6 @@ dependencies {
 
     api("dev.rollczi:litecommands-velocity:3.10.3")
 
-//    // adventure
-//    api("net.kyori:adventure-api:4.23.0")
-//    api("net.kyori:adventure-text-serializer-legacy:4.23.0")
-//    api("net.kyori:adventure-text-minimessage:4.23.0")
-
     // tasker
     api("eu.okaeri:okaeri-tasker-velocity:${Versions.OKAERI_TASKER_VERSION}")
 

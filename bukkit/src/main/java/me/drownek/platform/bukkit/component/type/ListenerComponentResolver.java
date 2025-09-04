@@ -10,7 +10,6 @@ import me.drownek.platform.core.component.ComponentHelper;
 import me.drownek.platform.core.component.creator.ComponentCreator;
 import me.drownek.platform.core.component.creator.ComponentResolver;
 import me.drownek.platform.core.component.manifest.BeanManifest;
-import me.drownek.platform.core.component.type.Init;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -44,17 +43,6 @@ public class ListenerComponentResolver implements ComponentResolver {
 
         Listener listener = (Listener) instance;
         this.plugin.getServer().getPluginManager().registerEvents(listener, this.plugin);
-
-        try {
-            Method initMethod = listener.getClass().getDeclaredMethod("init");
-            initMethod.setAccessible(true);
-            if (initMethod.isAnnotationPresent(Init.class)) {
-                initMethod.invoke(listener);
-            }
-        } catch (NoSuchMethodException ignored) {
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to invoke init method on " + listener.getClass().getName(), e);
-        }
 
         long took = System.currentTimeMillis() - start;
 

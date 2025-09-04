@@ -18,6 +18,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -27,20 +29,23 @@ import java.util.stream.Collectors;
 public class SkullMetaSerializer implements ObjectSerializer<SkullMeta> {
 
     private static final Field PROFILE_FIELD;
+    private static final Field PROPERTY_VALUE_FIELD;
     private static final Gson GSON = new Gson();
 
     static {
-        Field field;
         try {
-            SkullMeta skullMeta = (SkullMeta) SkullUtil.skull().getItemMeta();
-            field = skullMeta.getClass().getDeclaredField("profile");
-            field.setAccessible(true);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            field = null;
-        }
+            PROPERTY_VALUE_FIELD = Property.class.getDeclaredField("value");
+            PROPERTY_VALUE_FIELD.setAccessible(true);
 
-        PROFILE_FIELD = field;
+            SkullMeta skullMeta = (SkullMeta) SkullUtil.skull().getItemMeta();
+            if (skullMeta == null) {
+                throw new ExceptionInInitializerError("SkullMeta is null, cannot resolve profile field.");
+            }
+            PROFILE_FIELD = skullMeta.getClass().getDeclaredField("profile");
+            PROFILE_FIELD.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            throw new ExceptionInInitializerError(e);
+        }
     }
 
     public SkullMetaSerializer() {
@@ -67,31 +72,45 @@ public class SkullMetaSerializer implements ObjectSerializer<SkullMeta> {
             data.addCollection("flags", skullMeta.getItemFlags(), ItemFlag.class);
         }
 
+        String texture = null;
+
         if (VersionHelper.IS_PLAYER_PROFILE_API) {
             PlayerProfile profile = skullMeta.getOwnerProfile();
+            if (profile != null) {
+                URL skin = profile.getTextures().getSkin();
+                if (skin != null) {
+                    texture = convertSkinUrlToBase64(skin.toString());
+                }
+            }
+        }
+
+        if (texture == null) {
+            texture = getTextureOld(skullMeta);
+        }
+
+        if (texture != null) {
+            data.add("texture", texture);
+        }
+    }
+
+    private static @Nullable String getTextureOld(@NotNull SkullMeta skullMeta) {
+        try {
+            GameProfile profile = (GameProfile) PROFILE_FIELD.get(skullMeta);
             if (profile == null) {
-                return;
+                return null;
             }
-            URL skin = profile.getTextures().getSkin();
-            if (skin == null) {
-                return;
-            }
-            data.add("texture", convertSkinUrlToBase64(skin.toString()));
-        } else {
-            try {
-                GameProfile profile = (GameProfile) PROFILE_FIELD.get(skullMeta);
-                if (profile == null) {
-                    return;
-                }
-                Property textures = profile.getProperties().get("textures").stream().findFirst().orElse(null);
-                if (textures == null) {
-                    return;
-                }
-                String texture = textures.getValue();
-                data.add("texture", texture);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
+
+            Property property = profile.getProperties()
+                .get("textures")
+                .stream()
+                .findFirst()
+                .orElse(null);
+
+            return property == null
+                ? null
+                : (String) PROPERTY_VALUE_FIELD.get(property);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 

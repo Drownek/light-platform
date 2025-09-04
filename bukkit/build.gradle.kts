@@ -1,12 +1,20 @@
 plugins {
     `java-library`
     id("maven-publish")
+    id("com.gradleup.shadow") version "9.0.1"
 }
+
+val useLocal = project.hasProperty("useLocalLibrary") &&
+        project.property("useLocalLibrary").toString().toBoolean()
 
 dependencies {
     compileOnly("com.mojang:authlib:1.5.25")
-//    api("me.drownek:bukkit-utils:1.0.6") // <-- Uncomment this to use version from maven local instead of JitPack
-    api("com.github.Drownek:bukkit-utils:1.0.6")
+
+    if (useLocal) {
+        api("me.drownek:bukkit-utils:1.0.7")
+    } else {
+        api("com.github.Drownek:bukkit-utils:1.0.6")
+    }
 
     api("dev.rollczi:litecommands-bukkit:3.10.3")
 

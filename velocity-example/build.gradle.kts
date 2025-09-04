@@ -46,7 +46,6 @@ tasks.shadowJar {
         "dev.triumphteam",
         "panda",
         "net.jodah",
-//        "net.kyori",
         "me.drownek.util",
     ).forEach { pack ->
         relocate(pack, "$prefix.$pack")

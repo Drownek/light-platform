@@ -36,17 +36,6 @@ public class GenericComponentResolver implements ComponentResolver {
         long start = System.currentTimeMillis();
         Object result = injector.createInstance(manifest.getType());
 
-        try {
-            Method initMethod = result.getClass().getDeclaredMethod("init");
-            initMethod.setAccessible(true);
-            if (initMethod.isAnnotationPresent(Init.class)) {
-                initMethod.invoke(result);
-            }
-        } catch (NoSuchMethodException ignored) {
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to invoke init method on " + result.getClass().getName(), e);
-        }
-
         long took = System.currentTimeMillis() - start;
         if (took > 1) {
             creator.debug(ComponentHelper.buildComponentMessage()
