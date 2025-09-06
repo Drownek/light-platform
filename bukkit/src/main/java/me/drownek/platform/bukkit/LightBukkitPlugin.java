@@ -21,7 +21,7 @@ import me.drownek.platform.bukkit.scheduler.PlatformScheduler;
 import me.drownek.platform.bukkit.serdes.SerdesBukkit;
 import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.component.creator.ComponentCreator;
-import me.drownek.platform.core.dependency.DependencyManager;
+import me.drownek.platform.core.configs.polymorphic.PolymorphicSerdesPack;
 import me.drownek.platform.core.plan.ExecutionPlan;
 import me.drownek.platform.core.plan.ExecutionResult;
 import me.drownek.platform.core.plan.ExecutionTask;
@@ -34,7 +34,6 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Consumer;
 
 import static me.drownek.platform.core.plan.ExecutionPhase.*;
@@ -73,7 +72,18 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
             platform.registerInjectable("tasker", BukkitTasker.newPool(platform));
             platform.registerInjectable("pluginManager", platform.getServer().getPluginManager());
             platform.registerInjectable("defaultConfigurerProvider", (ConfigurerProvider) YamlBukkitConfigurer::new);
-            platform.registerInjectable("defaultConfigurerSerdes", new Class[]{SerdesCommons.class, SerdesOkaeri.class, SerdesBukkit.class, SerdesOkaeriBukkit.class, SerdesRangeSection.class, BukkitUtilsSerdes.class});
+            platform.registerInjectable(
+                "defaultConfigurerSerdes",
+                new Class[] {
+                    SerdesCommons.class,
+                    SerdesOkaeri.class,
+                    SerdesBukkit.class,
+                    SerdesOkaeriBukkit.class,
+                    SerdesRangeSection.class,
+                    BukkitUtilsSerdes.class,
+                    PolymorphicSerdesPack.class
+                }
+            );
         });
         plan.add(PRE_SETUP, new CommandSetupTask());
 
@@ -97,11 +107,6 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
     @Override
     @Deprecated
     public void onEnable() {
-        DependencyManager dependencyManager = new DependencyManager(this);
-        List<String> missingDependencies = dependencyManager.getMissingDependencies();
-        if (!missingDependencies.isEmpty()) {
-            throw new RuntimeException("Missing dependencies: " + String.join(", ", missingDependencies));
-        }
         // execute using plan
         ExecutionResult result = ExecutionPlan.dispatch(this);
         this.debug(this.getCreator().getSummaryText(result.getTotalMillis()));

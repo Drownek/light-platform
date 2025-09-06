@@ -15,6 +15,8 @@ import eu.okaeri.injector.OkaeriInjector;
 import eu.okaeri.injector.annotation.Inject;
 import me.drownek.example.config.Messages;
 import me.drownek.example.config.PluginConfig;
+import me.drownek.example.config.polymorphic.computer.Laptop;
+import me.drownek.example.config.polymorphic.computer.Server;
 import me.drownek.example.data.User;
 import me.drownek.example.hook.VaultHook;
 import me.drownek.example.service.ExampleService;
@@ -32,6 +34,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 @Command(name = "example")
 @Permission("example")
@@ -43,6 +46,19 @@ public class ExampleCommand {
     private @Inject Plugin plugin;
     private @Inject PluginConfig config;
     private @Inject VaultHook vaultHook;
+
+    @Execute(name = "polymorphic computer")
+    void polymorphicComputer(@Context CommandSender commandSender) {
+        config.computers.add(new Laptop("Apple", "MacBook Pro", 2499.99, 16, 1.4, 12, 512));
+        config.computers.add(new Server("Dell", "PowerEdge R750", 4999.99, 64, 24, true));
+        config.save();
+        config.load();
+        commandSender.sendMessage(
+            config.computers.stream()
+                .map(computer -> computer.getClass().getSimpleName())
+                .collect(Collectors.joining(", "))
+        );
+    }
 
     @Execute(name = "vault-hook")
     void vaultHook(@Context CommandSender player) {

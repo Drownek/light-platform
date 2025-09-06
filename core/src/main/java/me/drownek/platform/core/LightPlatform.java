@@ -49,10 +49,6 @@ public interface LightPlatform {
         return this.getClass().isAnnotationPresent(DebugLogging.class);
     }
 
-    default List<String> getDependencies() {
-        return Collections.emptyList();
-    }
-
     default List<Hook<?>> getHooks() { return Collections.emptyList(); }
 
     boolean isPluginEnabled(String pluginName);
