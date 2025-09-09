@@ -5,6 +5,7 @@ import eu.okaeri.configs.json.simple.JsonSimpleConfigurer;
 import eu.okaeri.persistence.PersistencePath;
 import eu.okaeri.persistence.document.DocumentPersistence;
 import eu.okaeri.persistence.jdbc.MariaDbPersistence;
+import eu.okaeri.persistence.jdbc.PostgresPersistence;
 import me.drownek.example.config.PluginConfig;
 import me.drownek.platform.bukkit.persistence.YamlBukkitPersistence;
 import me.drownek.platform.bukkit.serdes.SerdesBukkit;
@@ -38,6 +39,13 @@ public class PersistenceConfigurer {
                 mariadbHikari.setJdbcUrl(config.storage.uri);
                 // it is REQUIRED to use json configurer for the mariadb backend
                 return new DocumentPersistence(new MariaDbPersistence(basePath, mariadbHikari), JsonSimpleConfigurer::new, new SerdesBukkit());
+            case POSTGRES:
+                // setup hikari based on your needs, e.g. using config
+                HikariConfig postgresHikari = new HikariConfig();
+                postgresHikari.setJdbcUrl(config.storage.uri);
+                postgresHikari.setDriverClassName("org.postgresql.Driver");
+                // it is REQUIRED to use json configurer for the mariadb backend
+                return new DocumentPersistence(new PostgresPersistence(basePath, postgresHikari), JsonSimpleConfigurer::new, new SerdesBukkit());
             default:
                 throw new IllegalStateException("Unexpected value: " + config.storage.backend);
         }

@@ -1,5 +1,7 @@
 package me.drownek.platform.core.configs.polymorphic;
 
+import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Exclude;
 import eu.okaeri.configs.schema.ConfigDeclaration;
 import eu.okaeri.configs.schema.FieldDeclaration;
 import eu.okaeri.configs.schema.GenericsDeclaration;
@@ -60,6 +62,13 @@ public class PolymorphicSerializer implements ObjectSerializer<Object> {
 
         for (FieldDeclaration field : declaration.getFields()) {
             try {
+                Class<?> declaringClass = field.getField().getDeclaringClass();
+                if (declaringClass == OkaeriConfig.class) {
+                    continue;
+                }
+                if (field.getAnnotation(Exclude.class).isPresent()) {
+                    continue;
+                }
                 Object fieldValue = field.getValue();
                 if (fieldValue != null) {
                     // Use the configurer's simplify method but with the field's specific context

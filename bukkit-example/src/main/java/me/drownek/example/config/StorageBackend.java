@@ -2,5 +2,6 @@ package me.drownek.example.config;
 
 public enum StorageBackend {
     FLAT,
-    MYSQL
+    MYSQL,
+    POSTGRES
 }

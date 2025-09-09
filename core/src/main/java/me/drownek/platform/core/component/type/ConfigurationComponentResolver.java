@@ -11,6 +11,7 @@ import eu.okaeri.persistence.document.ConfigurerProvider;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.annotation.Configuration;
 import me.drownek.platform.core.component.ComponentHelper;
 import me.drownek.platform.core.component.creator.ComponentCreator;
@@ -20,6 +21,8 @@ import me.drownek.platform.core.component.manifest.BeanManifest;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @NoArgsConstructor
@@ -40,6 +43,7 @@ public class ConfigurationComponentResolver implements ComponentResolver {
     private @Inject Class<? extends OkaeriSerdesPack>[] defaultConfigurerSerdes;
     private @Inject File dataFolder;
     private @Inject Injector injector;
+    private @Inject LightPlatform lightPlatform;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -62,10 +66,16 @@ public class ConfigurationComponentResolver implements ComponentResolver {
                     ? this.defaultConfigurerProvider.get()
                     : injector.createInstance(provider);
 
-            OkaeriSerdesPack[] serdesPacks = Stream.concat(Stream.of(this.defaultConfigurerSerdes), Arrays.stream(configuration.serdes()))
-                    .map(injector::createInstance)
-                    .distinct()
-                    .toArray(OkaeriSerdesPack[]::new);
+            List<OkaeriSerdesPack> serdesPackList = Stream.concat(
+                    Stream.of(this.defaultConfigurerSerdes),
+                    Arrays.stream(configuration.serdes())
+                )
+                .map(injector::createInstance)
+                .collect(Collectors.toList());
+
+            serdesPackList.addAll(lightPlatform.additionalSerdesPacks());
+
+            OkaeriSerdesPack[] serdesPacks = serdesPackList.toArray(OkaeriSerdesPack[]::new);
 
             String extension = configurer.getExtensions().isEmpty() ? "bin" : configurer.getExtensions().get(0);
             String resolvedPath = path.replace("{ext}", extension);

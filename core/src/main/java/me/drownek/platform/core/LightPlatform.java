@@ -1,5 +1,6 @@
 package me.drownek.platform.core;
 
+import eu.okaeri.configs.serdes.OkaeriSerdesPack;
 import eu.okaeri.injector.Injector;
 import lombok.NonNull;
 import me.drownek.platform.core.annotation.DebugLogging;
@@ -52,4 +53,8 @@ public interface LightPlatform {
     default List<Hook<?>> getHooks() { return Collections.emptyList(); }
 
     boolean isPluginEnabled(String pluginName);
+
+    default List<OkaeriSerdesPack> additionalSerdesPacks() {
+        return List.of();
+    }
 }

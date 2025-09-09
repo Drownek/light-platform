@@ -42,6 +42,8 @@ dependencies {
     val lombok = "1.18.32"
     compileOnly("org.projectlombok:lombok:$lombok")
     annotationProcessor("org.projectlombok:lombok:$lombok")
+
+    implementation("org.postgresql:postgresql:42.7.4")
 }
 
 tasks.shadowJar {
