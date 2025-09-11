@@ -13,7 +13,7 @@ dependencies {
     if (useLocal) {
         api("me.drownek:bukkit-utils:1.0.7")
     } else {
-        api("com.github.Drownek:bukkit-utils:1.0.6")
+        api("com.github.Drownek:bukkit-utils:7a9e13792a")
     }
 
     api("dev.rollczi:litecommands-bukkit:3.10.3")

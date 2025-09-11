@@ -39,14 +39,19 @@ public class PluginConfig extends OkaeriConfig {
 
     public static class StorageConfig extends OkaeriConfig {
 
-        @Comment("Type of the storage backend: FLAT, MYSQL")
+        @Comment("Type of the storage backend: FLAT, MYSQL, POSTGRES")
         public StorageBackend backend = StorageBackend.FLAT;
 
         @Comment("Prefix for the storage: allows to have multiple instances using same database")
-        public String prefix = "example";
+        public String prefix = "vehiclesplus";
 
         @Comment("FLAT   : not applicable, plugin controlled")
-        @Comment("MYSQL  : jdbc:mysql://localhost:3306/db?user=root&password=1234")
-        public String uri = "redis://localhost";
+        @Comment("MYSQL  : jdbc:mysql://localhost:3306/db")
+        @Comment("POSTGRES  : jdbc:postgresql://localhost:5432/db")
+        public String uri = "";
+
+        public String user = "";
+
+        public String password = "";
     }
 }

@@ -37,12 +37,16 @@ public class PersistenceConfigurer {
                 // setup hikari based on your needs, e.g. using config
                 HikariConfig mariadbHikari = new HikariConfig();
                 mariadbHikari.setJdbcUrl(config.storage.uri);
+                mariadbHikari.setUsername(config.storage.user);
+                mariadbHikari.setPassword(config.storage.password);
                 // it is REQUIRED to use json configurer for the mariadb backend
                 return new DocumentPersistence(new MariaDbPersistence(basePath, mariadbHikari), JsonSimpleConfigurer::new, new SerdesBukkit());
             case POSTGRES:
                 // setup hikari based on your needs, e.g. using config
                 HikariConfig postgresHikari = new HikariConfig();
                 postgresHikari.setJdbcUrl(config.storage.uri);
+                postgresHikari.setUsername(config.storage.user);
+                postgresHikari.setPassword(config.storage.password);
                 postgresHikari.setDriverClassName("org.postgresql.Driver");
                 // it is REQUIRED to use json configurer for the mariadb backend
                 return new DocumentPersistence(new PostgresPersistence(basePath, postgresHikari), JsonSimpleConfigurer::new, new SerdesBukkit());
