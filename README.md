@@ -95,6 +95,7 @@ WaitingTask.builder()
 repositories {
     maven("https://jitpack.io")
     maven("https://storehouse.okaeri.eu/repository/maven-releases/")
+    maven("https://repo.panda-lang.org/releases")
 }
 
 dependencies {
@@ -106,6 +107,7 @@ dependencies {
 repositories {
     maven { url 'https://jitpack.io' }
     maven { url 'https://storehouse.okaeri.eu/repository/maven-releases/' }
+    maven { url 'https://repo.panda-lang.org/releases' }
 }
 
 dependencies {
@@ -122,6 +124,10 @@ dependencies {
     <repository>
         <id>okaeri-repo</id>
         <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
+    </repository>
+    <repository>
+        <id>panda-repo</id>
+        <url>https://repo.panda-lang.org/releases</url>
     </repository>
 </repositories>
 
