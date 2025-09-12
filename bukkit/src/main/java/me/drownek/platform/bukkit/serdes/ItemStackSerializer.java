@@ -4,8 +4,6 @@ import eu.okaeri.configs.schema.GenericsDeclaration;
 import eu.okaeri.configs.serdes.DeserializationData;
 import eu.okaeri.configs.serdes.ObjectSerializer;
 import eu.okaeri.configs.serdes.SerializationData;
-import eu.okaeri.configs.yaml.bukkit.serdes.itemstack.ItemStackFormat;
-import eu.okaeri.configs.yaml.bukkit.serdes.itemstack.ItemStackSpecData;
 import eu.okaeri.configs.yaml.bukkit.serdes.transformer.experimental.StringBase64ItemStackTransformer;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -14,12 +12,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.Optional;
+
 public class ItemStackSerializer implements ObjectSerializer<ItemStack> {
 
     private static final ItemMetaSerializer ITEM_META_SERIALIZER = new ItemMetaSerializer();
     private static final SkullMetaSerializer SKULL_META_SERIALIZER = new SkullMetaSerializer();
     private static final StringBase64ItemStackTransformer ITEM_STACK_TRANSFORMER = new StringBase64ItemStackTransformer();
-    private boolean failsafe = false;
 
     public boolean supports(@NonNull Class<? super ItemStack> type) {
         return ItemStack.class.isAssignableFrom(type);
@@ -36,7 +35,10 @@ public class ItemStackSerializer implements ObjectSerializer<ItemStack> {
             data.add("durability", itemStack.getDurability());
         }
 
-        ItemStackFormat format = data.getContext().getAttachment(ItemStackSpecData.class).map(ItemStackSpecData::getFormat).orElse(ItemStackFormat.NATURAL);
+        Optional<ItemStackSpecData> specData = data.getContext().getAttachment(ItemStackSpecData.class);
+        ItemStackFormat format = specData.map(ItemStackSpecData::getFormat).orElse(ItemStackFormat.NATURAL);
+        boolean failsafe = specData.map(ItemStackSpecData::isFailsafe).orElse(false);
+
         if (itemStack.hasItemMeta()) {
             if (itemStack.getItemMeta() instanceof SkullMeta skullMeta) {
                 SKULL_META_SERIALIZER.serialize(skullMeta, data, generics);
@@ -53,7 +55,7 @@ public class ItemStackSerializer implements ObjectSerializer<ItemStack> {
                 }
             }
 
-            if (this.failsafe) {
+            if (failsafe) {
                 DeserializationData deserializationData = new DeserializationData(data.asMap(), data.getConfigurer(), data.getContext());
                 ItemStack deserializedStack = this.deserialize(deserializationData, generics);
                 if (!itemStack.equals(deserializedStack)) {
@@ -115,9 +117,5 @@ public class ItemStackSerializer implements ObjectSerializer<ItemStack> {
     }
 
     public ItemStackSerializer() {
-    }
-
-    public ItemStackSerializer(final boolean failsafe) {
-        this.failsafe = failsafe;
     }
 }
