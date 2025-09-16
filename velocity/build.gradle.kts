@@ -1,5 +1,5 @@
 plugins {
-    `java-library`
+    `java-21-convention`
     id("maven-publish")
 }
 
@@ -7,34 +7,27 @@ dependencies {
     // core
     api(project(":core"))
 
-    api("dev.rollczi:litecommands-velocity:3.10.3")
+    api(libs.litecommands.velocity)
 
     // tasker
-    api("eu.okaeri:okaeri-tasker-velocity:${Versions.OKAERI_TASKER_VERSION}")
+    api(libs.okaeri.tasker.velocity)
 
     // configs
-    api("eu.okaeri:okaeri-configs-yaml-snakeyaml:${Versions.OKAERI_CONFIGS_VERSION}") {
+    api(libs.okaeri.configs.yaml.snakeyaml) {
         exclude(group = "org.yaml", module = "snakeyaml")
     }
-    api("eu.okaeri:okaeri-configs-serdes-adventure:${Versions.OKAERI_CONFIGS_VERSION}")
+    api(libs.okaeri.configs.serdes.adventure)
 
     // velocity
-    compileOnly("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
+    compileOnly(libs.velocity.api)
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "me.drownek"
             artifactId = "light-platform-velocity"
             println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])
         }
-    }
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }

@@ -1,45 +1,46 @@
 plugins {
-    `java-library`
+    `java-21-convention`
     id("maven-publish")
 }
 
 dependencies {
     // litecommands
-    api("dev.rollczi:litecommands-core:3.10.3")
-
-    api("dev.rollczi:litecommands-adventure-platform:3.10.3")
+    api(libs.litecommands.core)
+    api(libs.litecommands.adventure.platform)
 
     // persistence
-    api("eu.okaeri:okaeri-persistence-core:${Versions.OKAERI_PERSISTENCE_VERSION}")
+    api(libs.okaeri.persistence.core)
 
     // commons
-    api("eu.okaeri:okaeri-commons-core:${Versions.OKAERI_COMMONS_VERSION}")
+    api(libs.okaeri.commons.core)
 
     // configs
-    api("eu.okaeri:okaeri-configs-core:${Versions.OKAERI_CONFIGS_VERSION}")
-    api("eu.okaeri:okaeri-configs-serdes-commons:${Versions.OKAERI_CONFIGS_VERSION}")
-    api("eu.okaeri:okaeri-configs-serdes-okaeri:${Versions.OKAERI_CONFIGS_VERSION}")
+    api(libs.okaeri.configs.core)
+    api(libs.okaeri.configs.serdes.commons)
+    api(libs.okaeri.configs.serdes.okaeri)
+    api(libs.okaeri.configs)
+    api(libs.okaeri.configs.validator.okaeri) {
+        exclude(group = "eu.okaeri", module = "okaeri-validator")
+    }
 
     // configs-validator
-    api("eu.okaeri:okaeri-configs:${Versions.OKAERI_CONFIGS_VERSION}")
-    api("eu.okaeri:okaeri-configs-validator-okaeri:${Versions.OKAERI_CONFIGS_VERSION}") {
+    api(libs.okaeri.configs.validator.okaeri) {
         exclude(group = "eu.okaeri", module = "okaeri-validator")
     }
 
     // injector
-    api("eu.okaeri:okaeri-injector:${Versions.OKAERI_INJECTOR_VERSION}")
+    api(libs.okaeri.injector)
 
     // validator
-    api("eu.okaeri:okaeri-validator:${Versions.OKAERI_VALIDATOR_VERSION}")
+    api(libs.okaeri.validator)
 
     // tasker
-    api("eu.okaeri:okaeri-tasker-core:${Versions.OKAERI_TASKER_VERSION}")
+    api(libs.okaeri.tasker.core)
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "me.drownek"
             artifactId = "light-platform-core"
             println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE"}}")
             from(components["java"])

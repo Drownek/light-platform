@@ -2,8 +2,8 @@ plugins {
     java
 }
 
-group = "me.drownek"
-version = "2.1.3"
+group = "com.github.Drownek.light-platform"
+version = "2.1.1-beta2"
 
 subprojects {
     apply(plugin = "java")
@@ -12,7 +12,7 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(16))
+            languageVersion.set(JavaLanguageVersion.of(21))
         }
     }
 

@@ -1,49 +1,42 @@
 plugins {
-    `java-library`
+    `java-21-convention`
     id("maven-publish")
-    id("com.gradleup.shadow") version "9.0.1"
+    alias(libs.plugins.shadow)
 }
 
-val useLocal = project.hasProperty("useLocalLibrary") &&
-        project.property("useLocalLibrary").toString().toBoolean()
-
 dependencies {
-    compileOnly("com.mojang:authlib:1.5.25")
+    compileOnly(libs.authlib)
 
-    if (useLocal) {
-        api("me.drownek:bukkit-utils:1.0.7")
-    } else {
-        api("com.github.Drownek:bukkit-utils:7a9e13792a")
-    }
+    api(libs.bukkit.utils)
 
-    api("dev.rollczi:litecommands-bukkit:3.10.3")
+    api(libs.litecommands.bukkit)
+    api(libs.litecommands.folia)
 
     // core
     api(project(":core"))
 
     // persistence
-    api("eu.okaeri:okaeri-persistence-flat:${Versions.OKAERI_PERSISTENCE_VERSION}")
+    api(libs.okaeri.persistence.flat)
 
     // commons + tasker
-    api("eu.okaeri:okaeri-commons-bukkit:${Versions.OKAERI_COMMONS_VERSION}")
-    api("eu.okaeri:okaeri-tasker-bukkit:${Versions.OKAERI_TASKER_VERSION}")
+    api(libs.okaeri.commons.bukkit)
+    api(libs.okaeri.tasker.bukkit)
 
     // configs
-    api("eu.okaeri:okaeri-configs-yaml-bukkit:${Versions.OKAERI_CONFIGS_VERSION}")
-    api("eu.okaeri:okaeri-configs-serdes-bukkit:${Versions.OKAERI_CONFIGS_VERSION}")
-    api("eu.okaeri:okaeri-configs-serdes-okaeri-bukkit:${Versions.OKAERI_CONFIGS_VERSION}")
+    api(libs.okaeri.configs.yaml.bukkit)
+    api(libs.okaeri.configs.serdes.bukkit)
+    api(libs.okaeri.configs.serdes.okaeri.bukkit)
+    api(libs.okaeri.configs.serdes.okaeri)
 
     // Spigot API
-    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
+    compileOnly(libs.spigot.api)
 
-    api("eu.okaeri:okaeri-configs-serdes-okaeri:${Versions.OKAERI_CONFIGS_VERSION}")
-    api("eu.okaeri:okaeri-injector:${Versions.OKAERI_INJECTOR_VERSION}")
+    api(libs.okaeri.injector)
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "me.drownek"
             artifactId = "light-platform-bukkit"
             println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])

@@ -1,7 +1,7 @@
 plugins {
-    id("java")
-    id("com.gradleup.shadow") version "9.0.0-beta12"
-    id("xyz.jpenilla.run-velocity") version "2.3.1"
+    `java-21-convention`
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.run.velocity)
 }
 
 group = "me.drownek"
@@ -14,18 +14,17 @@ tasks {
 }
 
 dependencies {
-    compileOnly("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
-    annotationProcessor("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
+    compileOnly(libs.velocity.api)
+    annotationProcessor(libs.velocity.api)
 
     implementation(project(":velocity"))
 
-    implementation("eu.okaeri:okaeri-configs-json-simple:5.0.6")
-    implementation("eu.okaeri:okaeri-persistence-jdbc:3.0.1-beta.2")
+    implementation(libs.okaeri.configs.json.simple)
+    implementation(libs.okaeri.persistence.jdbc)
 
     /* lombok */
-    val lombok = "1.18.32"
-    compileOnly("org.projectlombok:lombok:$lombok")
-    annotationProcessor("org.projectlombok:lombok:$lombok")
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
 }
 
 tasks.shadowJar {
@@ -53,12 +52,6 @@ tasks.shadowJar {
 
     /* Fail as it wont work on server versions with plugin remapping */
     duplicatesStrategy = DuplicatesStrategy.FAIL
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
 }
 
 tasks.withType<JavaCompile> {

@@ -1,8 +1,8 @@
 plugins {
-    id("java")
-    id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
-    id("com.gradleup.shadow") version "9.0.0-beta12"
-    id("xyz.jpenilla.run-paper") version "2.3.1"
+    `java-21-convention`
+    alias(libs.plugins.plugin.yml.bukkit)
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.run.paper)
 }
 
 group = "me.drownek"
@@ -11,10 +11,6 @@ version = "1.0-SNAPSHOT"
 tasks {
     runServer {
         minecraftVersion("1.19.4")
-        val toolchains = project.extensions.getByType<JavaToolchainService>()
-        javaLauncher.set(toolchains.launcherFor {
-            languageVersion.set(JavaLanguageVersion.of(21)) // Run server with Java 21
-        })
     }
 }
 
@@ -28,22 +24,21 @@ bukkit {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly(libs.spigot.api.old)
 
     implementation(project(":bukkit"))
 
-    implementation("eu.okaeri:okaeri-configs-json-simple:5.0.6")
-    implementation("eu.okaeri:okaeri-persistence-jdbc:3.0.1-beta.2")
+    implementation(libs.okaeri.configs.json.simple)
+    implementation(libs.okaeri.persistence.jdbc)
 
     /* hooks */
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly(libs.vault.api)
 
     /* lombok */
-    val lombok = "1.18.32"
-    compileOnly("org.projectlombok:lombok:$lombok")
-    annotationProcessor("org.projectlombok:lombok:$lombok")
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
 
-    implementation("org.postgresql:postgresql:42.7.4")
+    implementation(libs.postgresql)
 }
 
 tasks.shadowJar {
@@ -72,12 +67,6 @@ tasks.shadowJar {
 
     /* Fail as it wont work on server versions with plugin remapping */
     duplicatesStrategy = DuplicatesStrategy.FAIL
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
 }
 
 tasks.withType<JavaCompile> {

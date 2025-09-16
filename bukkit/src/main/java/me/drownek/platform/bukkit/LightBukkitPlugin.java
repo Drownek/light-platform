@@ -85,7 +85,7 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
                 }
             );
         });
-        plan.add(PRE_SETUP, new CommandSetupTask());
+        plan.add(PRE_SETUP, new CommandSetupTask(this));
 
         plan.add(SETUP, new CreatorSetupTask(BukkitComponentCreator.class, BukkitCreatorRegistry.class));
         plan.add(SETUP, new HookSetupTask());

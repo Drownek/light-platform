@@ -4,19 +4,24 @@ import dev.rollczi.litecommands.LiteCommandsBuilder;
 import dev.rollczi.litecommands.adventure.bukkit.platform.LiteAdventurePlatformExtension;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitSettings;
+import dev.rollczi.litecommands.folia.FoliaExtension;
 import dev.rollczi.litecommands.message.LiteMessages;
 import dev.rollczi.litecommands.schematic.Schematic;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
+import lombok.RequiredArgsConstructor;
 import me.drownek.platform.bukkit.util.ChatUtil;
 import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.plan.ExecutionTask;
 import me.drownek.util.message.TextUtil;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class CommandSetupTask implements ExecutionTask<LightPlatform> {
+
+    private final Plugin plugin;
 
     @Override
     public void execute(LightPlatform platform) {
@@ -29,8 +34,8 @@ public class CommandSetupTask implements ExecutionTask<LightPlatform> {
             .serializer(TextUtil.miniMessage) // custom serializer
         );
 
-        // Arguments
-        builder.argument(OfflinePlayer.class, new OfflinePlayerArgument());
+        // Folia extension
+        builder.extension(new FoliaExtension(plugin));
 
         // Example values for some argument suggesters
         builder.argumentSuggester(
