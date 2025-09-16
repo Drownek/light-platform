@@ -9,7 +9,6 @@ import lombok.ToString;
 import me.drownek.platform.core.component.manifest.BeanManifest;
 import me.drownek.platform.core.component.manifest.BeanSource;
 
-import java.io.Closeable;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -115,18 +114,6 @@ public final class ComponentHelper {
 
             injector.registerInjectable(postConstruct.getName(), result);
         }
-    }
-
-    public static void closeAllOfType(@NonNull Class<? extends Closeable> type, @NonNull Injector injector, boolean closeHikari) {
-        injector.streamOf(type).forEach(closeable -> {
-            if (closeable.getClass().getSimpleName().equals("DocumentPersistence") && !closeHikari) {
-                return;
-            }
-            try {
-                closeable.close();
-            } catch (Throwable ignored) {
-            }
-        });
     }
 
     public static ComponentMessageBuilder buildComponentMessage() {

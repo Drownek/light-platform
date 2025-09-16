@@ -2,7 +2,6 @@ package me.drownek.platform.core.plan.task;
 
 import lombok.RequiredArgsConstructor;
 import me.drownek.platform.core.LightPlatform;
-import me.drownek.platform.core.component.ComponentHelper;
 import me.drownek.platform.core.plan.ExecutionTask;
 
 import java.io.Closeable;
@@ -14,6 +13,11 @@ public class CloseableShutdownTask implements ExecutionTask<LightPlatform> {
 
     @Override
     public void execute(LightPlatform platform) {
-        ComponentHelper.closeAllOfType(this.type, platform.getInjector(), platform.getInjector().get("closeHikari", Boolean.class).orElse(true));
+        platform.getInjector().streamOf(type).forEach(closeable -> {
+            try {
+                closeable.close();
+            } catch (Throwable ignored) {
+            }
+        });
     }
 }
