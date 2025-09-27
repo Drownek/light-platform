@@ -91,6 +91,7 @@ public class LightVelocityPlugin implements LightPlatform {
 
         plan.add(SHUTDOWN, new VelocitySchedulerShutdownTask());
         plan.add(SHUTDOWN, new CloseableShutdownTask(Persistence.class));
+        plan.add(SHUTDOWN, new CloseableComponentShutdownTask());
     }
 
     @Override

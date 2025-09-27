@@ -23,5 +23,7 @@ include(
     "bukkit",
     "bukkit-example",
     "velocity",
-    "velocity-example"
+    "velocity-example",
+    "bungee",
+    "bungee-example",
 )

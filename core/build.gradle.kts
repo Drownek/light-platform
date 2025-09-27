@@ -1,5 +1,5 @@
 plugins {
-    `java-21-convention`
+    `java-17-convention`
     id("maven-publish")
 }
 

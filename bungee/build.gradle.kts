@@ -5,11 +5,7 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.authlib)
-
-    api(libs.bukkit.utils)
-
-    api(libs.litecommands.bukkit)
+    api(libs.litecommands.bungeecord)
 
     // core
     api(project(":core"))
@@ -18,17 +14,14 @@ dependencies {
     api(libs.okaeri.persistence.flat)
 
     // commons + tasker
-    api(libs.okaeri.commons.bukkit)
-    api(libs.okaeri.tasker.bukkit)
+    api(libs.okaeri.tasker.bungee)
 
     // configs
-    api(libs.okaeri.configs.yaml.bukkit)
-    api(libs.okaeri.configs.serdes.bukkit)
-    api(libs.okaeri.configs.serdes.okaeri.bukkit)
+    api(libs.okaeri.configs.yaml.bungee)
     api(libs.okaeri.configs.serdes.okaeri)
 
     // Spigot API
-    compileOnly(libs.spigot.api)
+    compileOnly(libs.bungee.api)
 
     api(libs.okaeri.injector)
 }
@@ -36,7 +29,7 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = "light-platform-bukkit"
+            artifactId = "light-platform-bungee"
             println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])
         }

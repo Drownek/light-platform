@@ -1,5 +1,5 @@
 plugins {
-    `java-21-convention`
+    `java-17-convention`
     alias(libs.plugins.plugin.yml.bukkit)
     alias(libs.plugins.shadow)
     alias(libs.plugins.run.paper)

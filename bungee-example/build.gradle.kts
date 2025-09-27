@@ -1,23 +1,30 @@
 plugins {
     `java-17-convention`
+    alias(libs.plugins.plugin.yml.bungee)
     alias(libs.plugins.shadow)
-    alias(libs.plugins.run.velocity)
+    alias(libs.plugins.run.waterfall)
 }
 
 group = "me.drownek"
 version = "1.0-SNAPSHOT"
 
 tasks {
-    runVelocity {
-        velocityVersion("3.3.0-SNAPSHOT")
+    runWaterfall {
+        waterfallVersion("1.21")
     }
 }
 
-dependencies {
-    compileOnly(libs.velocity.api)
-    annotationProcessor(libs.velocity.api)
+bungee {
+    main = "me.drownek.example.ExamplePlugin"
+    name = "ExamplePlugin"
+    author = "Drownek"
+    version = "${project.version}"
+}
 
-    implementation(project(":velocity"))
+dependencies {
+    compileOnly(libs.bungee.api)
+
+    implementation(project(":bungee"))
 
     implementation(libs.okaeri.configs.json.simple)
     implementation(libs.okaeri.persistence.jdbc)
@@ -25,10 +32,12 @@ dependencies {
     /* lombok */
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
+
+    implementation(libs.postgresql)
 }
 
 tasks.shadowJar {
-    archiveFileName.set("light-platform-velocity-example-${project.version}.jar")
+    archiveFileName.set("light-platform-bungee-example-${project.version}.jar")
 
     exclude(
         "org/intellij/lang/annotations/**",
@@ -45,6 +54,7 @@ tasks.shadowJar {
         "dev.triumphteam",
         "panda",
         "net.jodah",
+        "net.kyori",
         "me.drownek.util",
     ).forEach { pack ->
         relocate(pack, "$prefix.$pack")
