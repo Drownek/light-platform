@@ -20,7 +20,6 @@ dependencies {
     implementation(project(":velocity"))
 
     implementation(libs.okaeri.configs.json.simple)
-    implementation(libs.okaeri.persistence.jdbc)
 
     /* lombok */
     compileOnly(libs.lombok)

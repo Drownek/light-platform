@@ -10,6 +10,7 @@ dependencies {
 
     // persistence
     api(libs.okaeri.persistence.core)
+    api(libs.okaeri.persistence.jdbc)
 
     // commons
     api(libs.okaeri.commons.core)

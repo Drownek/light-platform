@@ -29,7 +29,6 @@ dependencies {
     implementation(project(":bukkit"))
 
     implementation(libs.okaeri.configs.json.simple)
-    implementation(libs.okaeri.persistence.jdbc)
 
     /* hooks */
     compileOnly(libs.vault.api)

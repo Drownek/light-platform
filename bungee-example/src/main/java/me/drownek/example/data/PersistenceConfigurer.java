@@ -2,12 +2,13 @@ package me.drownek.example.data;
 
 import com.zaxxer.hikari.HikariConfig;
 import eu.okaeri.configs.json.simple.JsonSimpleConfigurer;
+import eu.okaeri.configs.yaml.bungee.YamlBungeeConfigurer;
 import eu.okaeri.persistence.PersistencePath;
 import eu.okaeri.persistence.document.DocumentPersistence;
+import eu.okaeri.persistence.flat.FlatPersistence;
 import eu.okaeri.persistence.jdbc.MariaDbPersistence;
 import eu.okaeri.persistence.jdbc.PostgresPersistence;
 import me.drownek.example.config.PluginConfig;
-import me.drownek.platform.bungee.persistence.YamlBungeePersistence;
 import me.drownek.platform.core.annotation.Bean;
 import me.drownek.platform.core.annotation.Component;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -31,7 +32,7 @@ public class PersistenceConfigurer {
                 // specify custom child dir in dataFolder or other custom location
                 // or use YamlBukkitPersistence.of(plugin) for default pluginFolder/storage/* (best used for simplest plugins with single storage backend)
                 // same as: new DocumentPersistence(new FlatPersistence(new File(dataFolder, "storage"), ".yml"), YamlBukkitConfigurer::new, new SerdesBukkit())
-                return YamlBungeePersistence.of(new File(plugin.getDataFolder(), "storage"));
+                return new DocumentPersistence(new FlatPersistence(new File(plugin.getDataFolder(), "storage"), ".yml"), YamlBungeeConfigurer::new);
             case MYSQL:
                 // setup hikari based on your needs, e.g. using config
                 HikariConfig mariadbHikari = new HikariConfig();
