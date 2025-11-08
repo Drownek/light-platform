@@ -37,7 +37,6 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = "light-platform-bukkit"
-            println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])
         }
     }

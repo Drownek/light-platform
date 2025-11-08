@@ -30,7 +30,6 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = "light-platform-bungee"
-            println("Publishing as ${listOf(groupId, artifactId, version).joinToString(":") { it ?: "NONE" }}")
             from(components["java"])
         }
     }
