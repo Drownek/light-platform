@@ -9,7 +9,7 @@ run-velocity = "2.3.1"
 
 # Library versions
 authlib = "1.5.25"
-bukkit-utils = "1.0.7-beta2"
+bukkit-utils = "1.0.7-beta3"
 litecommands = "3.10.5"
 litecommands-velocity = "3.10.3"
 spigot-api-old = "1.16.5-R0.1-SNAPSHOT"
