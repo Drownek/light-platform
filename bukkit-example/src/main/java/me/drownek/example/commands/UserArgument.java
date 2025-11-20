@@ -26,9 +26,9 @@ public class UserArgument extends ArgumentResolver<CommandSender, User> {
     @Override
     protected ParseResult<User> parse(Invocation<CommandSender> invocation, Argument<User> argument, String s) {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(s);
-        if (!offlinePlayer.hasPlayedBefore()) {
-            return ParseResult.failure(messages.playerNotFound);
-        }
+//        if (!offlinePlayer.hasPlayedBefore()) {
+//            return ParseResult.failure(messages.playerNotFound);
+//        }
         return ParseResult.success(repository.getByPlayer(offlinePlayer));
     }
 

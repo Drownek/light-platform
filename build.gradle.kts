@@ -2,8 +2,8 @@ plugins {
     java
 }
 
-group = "com.github.Drownek.light-platform"
-version = "2.2.1-beta3"
+group = "com.github.Drownek"
+version = "2.3.0-beta1"
 
 subprojects {
     apply(plugin = "java")

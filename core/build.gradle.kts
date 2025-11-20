@@ -5,27 +5,22 @@ plugins {
 
 dependencies {
     // litecommands
-    api(libs.litecommands.core)
-    api(libs.litecommands.adventure.platform)
+    compileOnly(libs.litecommands.core)
+    compileOnly(libs.litecommands.adventure.platform)
 
     // persistence
-    api(libs.okaeri.persistence.core)
-    api(libs.okaeri.persistence.jdbc)
+    compileOnly(libs.okaeri.persistence.core)
+    compileOnly(libs.okaeri.persistence.jdbc)
 
     // commons
     api(libs.okaeri.commons.core)
 
     // configs
-    api(libs.okaeri.configs.core)
-    api(libs.okaeri.configs.serdes.commons)
-    api(libs.okaeri.configs.serdes.okaeri)
-    api(libs.okaeri.configs)
-    api(libs.okaeri.configs.validator.okaeri) {
-        exclude(group = "eu.okaeri", module = "okaeri-validator")
-    }
-
-    // configs-validator
-    api(libs.okaeri.configs.validator.okaeri) {
+    compileOnly(libs.okaeri.configs.core)
+    compileOnly(libs.okaeri.configs.serdes.commons)
+    compileOnly(libs.okaeri.configs.serdes.okaeri)
+    compileOnly(libs.okaeri.configs)
+    compileOnly(libs.okaeri.configs.validator.okaeri) {
         exclude(group = "eu.okaeri", module = "okaeri-validator")
     }
 
@@ -37,12 +32,14 @@ dependencies {
 
     // tasker
     api(libs.okaeri.tasker.core)
+
+    api(libs.jetbrains.annotations)
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = "light-platform-core"
+            artifactId = "platform-core"
             from(components["java"])
         }
     }

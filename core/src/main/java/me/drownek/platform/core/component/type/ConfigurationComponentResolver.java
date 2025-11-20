@@ -7,7 +7,6 @@ import eu.okaeri.configs.serdes.OkaeriSerdesPack;
 import eu.okaeri.configs.validator.okaeri.OkaeriValidator;
 import eu.okaeri.injector.Injector;
 import eu.okaeri.injector.annotation.Inject;
-import eu.okaeri.persistence.document.ConfigurerProvider;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -39,7 +38,7 @@ public class ConfigurationComponentResolver implements ComponentResolver {
         return false;
     }
 
-    private @Inject ConfigurerProvider defaultConfigurerProvider;
+    private @Inject Configurer defaultConfigurerProvider;
     private @Inject Class<? extends OkaeriSerdesPack>[] defaultConfigurerSerdes;
     private @Inject File dataFolder;
     private @Inject Injector injector;
@@ -63,7 +62,7 @@ public class ConfigurationComponentResolver implements ComponentResolver {
 
         try {
             Configurer configurer = (provider == Configuration.DEFAULT.class)
-                    ? this.defaultConfigurerProvider.get()
+                    ? this.defaultConfigurerProvider
                     : injector.createInstance(provider);
 
             List<OkaeriSerdesPack> serdesPackList = Stream.concat(

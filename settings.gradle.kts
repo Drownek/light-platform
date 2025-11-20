@@ -2,6 +2,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -21,6 +22,10 @@ rootProject.name = "light-platform"
 include(
     "core",
     "bukkit",
+    "bukkit-core",
+    "bukkit-configs",
+    "bukkit-persistence",
+    "bukkit-litecommands",
     "bukkit-example",
     "velocity",
     "velocity-example",

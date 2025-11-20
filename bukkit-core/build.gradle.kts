@@ -5,17 +5,20 @@ plugins {
 }
 
 dependencies {
-    api(project(":bukkit-core"))
-    api(project(":bukkit-configs"))
-    api(project(":bukkit-persistence"))
-    api(project(":bukkit-litecommands"))
-    api(libs.bukkit.utils)
+    // core
+    api(project(":core"))
+
+    // Spigot API
+    compileOnly(libs.spigot.api)
+
+    api(libs.okaeri.tasker.bukkit)
+    api(libs.okaeri.commons.bukkit)
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = "platform-bukkit"
+            artifactId = "platform-bukkit-core"
             from(components["java"])
         }
     }

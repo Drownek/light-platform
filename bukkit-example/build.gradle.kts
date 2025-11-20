@@ -43,13 +43,6 @@ dependencies {
 tasks.shadowJar {
     archiveFileName.set("light-platform-bukkit-example-${project.version}.jar")
 
-    exclude(
-        "org/intellij/lang/annotations/**",
-        "org/jetbrains/annotations/**",
-        "META-INF/**",
-        "javax/**"
-    )
-
     val prefix = "me.drownek.example.libs"
     listOf(
         "eu.okaeri",
@@ -63,9 +56,6 @@ tasks.shadowJar {
     ).forEach { pack ->
         relocate(pack, "$prefix.$pack")
     }
-
-    /* Fail as it wont work on server versions with plugin remapping */
-    duplicatesStrategy = DuplicatesStrategy.FAIL
 }
 
 tasks.withType<JavaCompile> {

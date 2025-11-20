@@ -10,6 +10,9 @@ run-velocity = "2.3.1"
 # Library versions
 authlib = "1.5.25"
 bukkit-utils = "1.0.7-beta3"
+adventure = "4.23.0"
+adventure-platform-bukkit = "4.4.1"
+jetbrains-annotations = "24.0.1"
 litecommands = "3.10.5"
 litecommands-velocity = "3.10.3"
 spigot-api-old = "1.16.5-R0.1-SNAPSHOT"
@@ -30,6 +33,13 @@ postgresql = "42.7.4"
 [libraries]
 authlib = { group = "com.mojang", name = "authlib", version.ref = "authlib" }
 bukkit-utils = { group = "com.github.Drownek", name = "bukkit-utils", version.ref = "bukkit-utils" }
+jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrains-annotations" }
+
+# Adventure
+adventure-api = { group = "net.kyori", name = "adventure-api", version.ref = "adventure" }
+adventure-text-serializer-legacy = { group = "net.kyori", name = "adventure-text-serializer-legacy", version.ref = "adventure" }
+adventure-text-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
+adventure-platform-bukkit = { group = "net.kyori", name = "adventure-platform-bukkit", version.ref = "adventure-platform-bukkit" }
 
 # LiteCommands
 litecommands-core = { group = "dev.rollczi", name = "litecommands-core", version.ref = "litecommands" }
