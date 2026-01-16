@@ -11,6 +11,7 @@ import me.drownek.platform.bukkit.plan.BukkitExternalResourceProviderSetupTask;
 import me.drownek.platform.bukkit.scheduler.PlatformScheduler;
 import me.drownek.platform.core.LightPlatform;
 import me.drownek.platform.core.component.creator.ComponentCreator;
+import me.drownek.platform.core.extension.ExtensionRegistry;
 import me.drownek.platform.core.extension.LightExtension;
 import me.drownek.platform.core.plan.ExecutionPlan;
 import me.drownek.platform.core.plan.ExecutionResult;
@@ -28,6 +29,26 @@ import java.util.function.Consumer;
 import static me.drownek.platform.core.plan.ExecutionPhase.*;
 
 
+/**
+ * Base class for Bukkit plugins using the light-platform framework.
+ * <p>
+ * Extend this class instead of {@link JavaPlugin} to leverage the platform's
+ * dependency injection, component system, and execution plan lifecycle.
+ * <p>
+ * The plugin lifecycle is managed through {@link ExecutionPlan} phases:
+ * <ul>
+ *   <li>{@code PRE_SETUP} - Injector and core injectables initialization</li>
+ *   <li>{@code SETUP} - Component creator and registry setup</li>
+ *   <li>{@code POST_SETUP} - Bean manifest creation and execution</li>
+ *   <li>{@code SHUTDOWN} - Resource cleanup and component shutdown</li>
+ * </ul>
+ * <p>
+ * Extensions registered via {@link ExtensionRegistry} can contribute to the plan
+ * by implementing {@link LightExtension#plan(ExecutionPlan, LightPlatform)}.
+ *
+ * @see LightPlatform
+ * @see ExtensionRegistry
+ */
 public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
 
     private final @Getter File file = super.getFile();
@@ -72,18 +93,8 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
         plan.add(POST_SETUP, new BeanManifestCreateTask());
         plan.add(POST_SETUP, new BeanManifestExecuteTask());
 
-        // allow extensions to contribute to the plan before shutdown tasks
-        for (String className : BukkitCreatorRegistry.EXTENSION_CLASSES) {
-            try {
-                Class<?> extClass = Class.forName(className, true, getClass().getClassLoader());
-                LightExtension ext = (LightExtension) extClass.getDeclaredConstructor().newInstance();
-                ext.plan(plan, this);
-            } catch (ClassNotFoundException e) {
-                debug("Extension not available: " + className);
-            } catch (Exception e) {
-                getLogger().warning("Failed to load extension " + className + ": " + e.getMessage());
-            }
-        }
+        // allow extensions to contribute to the plan
+        ExtensionRegistry.getExtensions().forEach(ext -> ext.plan(plan, this));
 
         // core shutdown
         plan.add(SHUTDOWN, new CloseableComponentShutdownTask());
