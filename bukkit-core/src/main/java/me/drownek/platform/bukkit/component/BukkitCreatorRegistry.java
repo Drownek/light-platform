@@ -13,21 +13,32 @@ import me.drownek.platform.core.component.type.GenericComponentResolver;
 import me.drownek.platform.core.extension.LightExtension;
 import me.drownek.platform.core.util.ExtensionsUtil;
 
-import java.util.ServiceLoader;
+import java.util.Arrays;
+import java.util.List;
 
 public class BukkitCreatorRegistry extends ComponentCreatorRegistry {
+
+    public static final List<String> EXTENSION_CLASSES = Arrays.asList(
+            "me.drownek.platform.bukkit.BukkitConfigsExtension",
+            "me.drownek.platform.bukkit.BukkitLitecommandsExtension",
+            "me.drownek.platform.bukkit.persistence.BukkitPersistenceExtension"
+    );
 
     @Inject
     public BukkitCreatorRegistry(Injector injector, LightBukkitPlugin plugin) {
         super(injector);
 
-        ServiceLoader<LightExtension> loader =
-                ServiceLoader.load(LightExtension.class, getClass().getClassLoader());
-
-        plugin.debug("Loading " + loader.stream().toList().size() + " extensions...");
-        for (LightExtension ext : loader) {
-            plugin.debug("Registering extension: " + ext.getClass().getName());
-            ext.register(this, injector);
+        for (String className : EXTENSION_CLASSES) {
+            try {
+                Class<?> extClass = Class.forName(className, true, getClass().getClassLoader());
+                LightExtension ext = (LightExtension) extClass.getDeclaredConstructor().newInstance();
+                plugin.debug("Registering extension: " + className);
+                ext.register(this, injector);
+            } catch (ClassNotFoundException e) {
+                plugin.debug("Extension not available: " + className);
+            } catch (Exception e) {
+                plugin.getLogger().warning("Failed to load extension " + className + ": " + e.getMessage());
+            }
         }
 
         // custom first

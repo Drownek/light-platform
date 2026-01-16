@@ -23,7 +23,6 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.ServiceLoader;
 import java.util.function.Consumer;
 
 import static me.drownek.platform.core.plan.ExecutionPhase.*;
@@ -74,9 +73,16 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
         plan.add(POST_SETUP, new BeanManifestExecuteTask());
 
         // allow extensions to contribute to the plan before shutdown tasks
-        ServiceLoader<LightExtension> loader = ServiceLoader.load(LightExtension.class, getClass().getClassLoader());
-        for (LightExtension extension : loader) {
-            extension.plan(plan, this);
+        for (String className : BukkitCreatorRegistry.EXTENSION_CLASSES) {
+            try {
+                Class<?> extClass = Class.forName(className, true, getClass().getClassLoader());
+                LightExtension ext = (LightExtension) extClass.getDeclaredConstructor().newInstance();
+                ext.plan(plan, this);
+            } catch (ClassNotFoundException e) {
+                debug("Extension not available: " + className);
+            } catch (Exception e) {
+                getLogger().warning("Failed to load extension " + className + ": " + e.getMessage());
+            }
         }
 
         // core shutdown
