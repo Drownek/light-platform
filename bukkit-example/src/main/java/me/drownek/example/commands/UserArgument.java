@@ -16,6 +16,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 @CommandArgument
 public class UserArgument extends ArgumentResolver<CommandSender, User> {
@@ -25,11 +26,12 @@ public class UserArgument extends ArgumentResolver<CommandSender, User> {
 
     @Override
     protected ParseResult<User> parse(Invocation<CommandSender> invocation, Argument<User> argument, String s) {
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(s);
-//        if (!offlinePlayer.hasPlayedBefore()) {
-//            return ParseResult.failure(messages.playerNotFound);
-//        }
-        return ParseResult.success(repository.getByPlayer(offlinePlayer));
+        return Arrays.stream(Bukkit.getOfflinePlayers())
+                .filter(it -> Objects.equals(it.getName(), s))
+                .findAny()
+                .map(repository::getByPlayer)
+                .map(ParseResult::success)
+                .orElseGet(() -> ParseResult.failure(messages.playerNotFound));
     }
 
     @Override
