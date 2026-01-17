@@ -2,6 +2,7 @@ plugins {
     `java-17-convention`
     id("maven-publish")
     alias(libs.plugins.shadow)
+    `publishing-convention`
 }
 
 dependencies {
@@ -28,13 +29,4 @@ dependencies {
 
     // Registering utils serdes if present
     compileOnly(libs.bukkit.utils)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "platform-bukkit-configs"
-            from(components["java"])
-        }
-    }
 }

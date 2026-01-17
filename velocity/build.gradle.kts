@@ -1,6 +1,7 @@
 plugins {
     `java-17-convention`
     id("maven-publish")
+    `publishing-convention`
 }
 
 dependencies {
@@ -32,14 +33,4 @@ dependencies {
 
     api(libs.okaeri.persistence.core)
     api(libs.okaeri.persistence.jdbc)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.Drownek"
-            artifactId = "platform-velocity"
-            from(components["java"])
-        }
-    }
 }

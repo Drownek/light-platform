@@ -20,9 +20,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ItemMetaSerializer implements ObjectSerializer<ItemMeta> {
-    private static final char COLOR_CHAR = '§';
-    private static final char ALT_COLOR_CHAR = '&';
-
     private static final Method HAS_CUSTOM_MODEL_DATA_METHOD;
     private static final Method GET_CUSTOM_MODEL_DATA_METHOD;
     private static final Method SET_CUSTOM_MODEL_DATA_METHOD;

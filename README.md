@@ -93,34 +93,30 @@ WaitingTask.builder()
 ### Gradle (Kotlin DSL)
 ```kotlin
 repositories {
-    maven("https://jitpack.io")
+    mavenCentral()
     maven("https://storehouse.okaeri.eu/repository/maven-releases/")
     maven("https://repo.panda-lang.org/releases")
 }
 
 dependencies {
-    implementation("com.github.Drownek:light-platform-bukkit:{version}")
+    implementation("io.github.drownek:platform-bukkit:{version}")
 }
 ```
 ### Gradle (Groovy)
 ```groovy
 repositories {
-    maven { url 'https://jitpack.io' }
+    mavenCentral()
     maven { url 'https://storehouse.okaeri.eu/repository/maven-releases/' }
     maven { url 'https://repo.panda-lang.org/releases' }
 }
 
 dependencies {
-    implementation 'com.github.Drownek:light-platform-bukkit:{version}'
+    implementation 'io.github.drownek:platform-bukkit:{version}'
 }
 ```
 ### Maven
 ```xml
 <repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
     <repository>
         <id>okaeri-repo</id>
         <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
@@ -133,8 +129,8 @@ dependencies {
 
 <dependencies>
     <dependency>
-        <groupId>com.github.Drownek</groupId>
-        <artifactId>light-platform-bukkit</artifactId>
+        <groupId>io.github.drownek</groupId>
+        <artifactId>platform-bukkit</artifactId>
         <version>{version}</version>
     </dependency>
 </dependencies>
@@ -149,32 +145,28 @@ dependencies {
 ### Gradle (Kotlin DSL)
 ```kotlin
 repositories {
-    maven("https://jitpack.io")
+    mavenCentral()
     maven("https://storehouse.okaeri.eu/repository/maven-releases/")
 }
 
 dependencies {
-    implementation("com.github.Drownek:light-platform-velocity:{version}")
+    implementation("io.github.drownek:platform-velocity:{version}")
 }
 ```
 ### Gradle (Groovy)
 ```groovy
 repositories {
-    maven { url 'https://jitpack.io' }
+    mavenCentral()
     maven { url 'https://storehouse.okaeri.eu/repository/maven-releases/' }
 }
 
 dependencies {
-    implementation 'com.github.Drownek:light-platform-velocity:{version}'
+    implementation 'io.github.drownek:platform-velocity:{version}'
 }
 ```
 ### Maven
 ```xml
 <repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
     <repository>
         <id>okaeri-repo</id>
         <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
@@ -183,8 +175,8 @@ dependencies {
 
 <dependencies>
     <dependency>
-        <groupId>com.github.Drownek</groupId>
-        <artifactId>light-platform-velocity</artifactId>
+        <groupId>io.github.drownek</groupId>
+        <artifactId>platform-velocity</artifactId>
         <version>{version}</version>
     </dependency>
 </dependencies>

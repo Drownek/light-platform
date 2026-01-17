@@ -1,6 +1,7 @@
 plugins {
     `java-17-convention`
     id("maven-publish")
+    `publishing-convention`
 }
 
 dependencies {
@@ -34,13 +35,4 @@ dependencies {
     api(libs.okaeri.tasker.core)
 
     api(libs.jetbrains.annotations)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "platform-core"
-            from(components["java"])
-        }
-    }
 }

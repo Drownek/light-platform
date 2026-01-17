@@ -2,6 +2,7 @@ plugins {
     `java-17-convention`
     id("maven-publish")
     alias(libs.plugins.shadow)
+    `publishing-convention`
 }
 
 dependencies {
@@ -24,13 +25,4 @@ dependencies {
 
     // For LiteCommandsConfig
     compileOnly(libs.okaeri.configs.core)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "platform-bukkit-litecommands"
-            from(components["java"])
-        }
-    }
 }

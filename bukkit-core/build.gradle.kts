@@ -2,6 +2,7 @@ plugins {
     `java-17-convention`
     id("maven-publish")
     alias(libs.plugins.shadow)
+    `publishing-convention`
 }
 
 dependencies {
@@ -13,13 +14,4 @@ dependencies {
 
     api(libs.okaeri.tasker.bukkit)
     api(libs.okaeri.commons.bukkit)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "platform-bukkit-core"
-            from(components["java"])
-        }
-    }
 }
