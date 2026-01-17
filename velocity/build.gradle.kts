@@ -37,6 +37,7 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            groupId = "com.github.Drownek"
             artifactId = "platform-velocity"
             from(components["java"])
         }

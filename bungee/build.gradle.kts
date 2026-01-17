@@ -40,6 +40,7 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            groupId = "com.github.Drownek"
             artifactId = "platform-bungee"
             from(components["java"])
         }

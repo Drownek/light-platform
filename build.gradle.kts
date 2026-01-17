@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.github.Drownek"
-version = "2.3.0"
+version = "2.3.1"
 
 subprojects {
     apply(plugin = "java")

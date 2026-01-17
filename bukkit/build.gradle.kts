@@ -15,6 +15,7 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            groupId = "com.github.Drownek"
             artifactId = "platform-bukkit"
             from(components["java"])
         }
