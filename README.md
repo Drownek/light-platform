@@ -94,6 +94,7 @@ WaitingTask.builder()
 ```kotlin
 repositories {
     mavenCentral()
+    maven("https://jitpack.io/")
     maven("https://storehouse.okaeri.eu/repository/maven-releases/")
     maven("https://repo.panda-lang.org/releases")
 }
@@ -106,6 +107,7 @@ dependencies {
 ```groovy
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io/' }
     maven { url 'https://storehouse.okaeri.eu/repository/maven-releases/' }
     maven { url 'https://repo.panda-lang.org/releases' }
 }
@@ -124,6 +126,10 @@ dependencies {
     <repository>
         <id>panda-repo</id>
         <url>https://repo.panda-lang.org/releases</url>
+    </repository>
+    <repository>
+        <id>jitpack-repo</id>
+        <url>https://jitpack.io</url>
     </repository>
 </repositories>
 
