@@ -7,7 +7,6 @@ import eu.okaeri.configs.serdes.okaeri.range.section.SerdesRangeSection;
 import eu.okaeri.configs.yaml.bungee.YamlBungeeConfigurer;
 import eu.okaeri.injector.Injector;
 import eu.okaeri.persistence.Persistence;
-import eu.okaeri.persistence.document.ConfigurerProvider;
 import eu.okaeri.tasker.bungee.BungeeTasker;
 import lombok.Getter;
 import lombok.NonNull;
@@ -59,7 +58,7 @@ public class LightBungeePlugin extends Plugin implements LightPlatform {
             platform.registerInjectable("logger", platform.getLogger());
             platform.registerInjectable("plugin", platform);
             platform.registerInjectable("tasker", BungeeTasker.newPool(platform));
-            platform.registerInjectable("defaultConfigurerProvider", (ConfigurerProvider) YamlBungeeConfigurer::new);
+            platform.registerInjectable("defaultConfigurerProvider", YamlBungeeConfigurer.class);
             platform.registerInjectable(
                 "defaultConfigurerSerdes",
                 new Class[] {

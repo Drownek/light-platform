@@ -22,7 +22,7 @@ public class BukkitConfigsExtension implements LightExtension {
 
     @Override
     public void register(ComponentCreatorRegistry registry, Injector injector) {
-        injector.registerInjectable("defaultConfigurerProvider", new YamlBukkitConfigurer());
+        injector.registerInjectable("defaultConfigurerProvider", YamlBukkitConfigurer.class);
         List<Class<? extends OkaeriSerdesPack>> defaultConfigurerSerdes = new ArrayList<>(List.of(
                 SerdesCommons.class,
                 SerdesOkaeri.class,

@@ -13,7 +13,6 @@ import eu.okaeri.configs.serdes.okaeri.SerdesOkaeri;
 import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import eu.okaeri.injector.Injector;
 import eu.okaeri.persistence.Persistence;
-import eu.okaeri.persistence.document.ConfigurerProvider;
 import eu.okaeri.platform.velocity.component.VelocityComponentCreator;
 import eu.okaeri.platform.velocity.component.VelocityCreatorRegistry;
 import eu.okaeri.platform.velocity.plan.CommandSetupTask;
@@ -74,7 +73,7 @@ public class LightVelocityPlugin implements LightPlatform {
             platform.registerInjectable("scheduler", new PlatformScheduler(this.container, this.proxy.getScheduler()));
             platform.registerInjectable("tasker", VelocityTasker.newPool(this.proxy, this.container));
             platform.registerInjectable("pluginManager", this.proxy.getPluginManager());
-            platform.registerInjectable("defaultConfigurerProvider", (ConfigurerProvider) YamlSnakeYamlConfigurer::new);
+            platform.registerInjectable("defaultConfigurerProvider", YamlSnakeYamlConfigurer.class);
             platform.registerInjectable("defaultConfigurerSerdes", new Class[]{SerdesCommons.class, SerdesOkaeri.class, SerdesAdventure.class});
         });
 

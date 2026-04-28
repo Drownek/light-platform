@@ -38,7 +38,7 @@ public class ConfigurationComponentResolver implements ComponentResolver {
         return false;
     }
 
-    private @Inject Configurer defaultConfigurerProvider;
+    private @Inject Class<Configurer> defaultConfigurerProvider;
     private @Inject Class<? extends OkaeriSerdesPack>[] defaultConfigurerSerdes;
     private @Inject File dataFolder;
     private @Inject Injector injector;
@@ -62,7 +62,7 @@ public class ConfigurationComponentResolver implements ComponentResolver {
 
         try {
             Configurer configurer = (provider == Configuration.DEFAULT.class)
-                    ? this.defaultConfigurerProvider
+                    ? injector.createInstance(this.defaultConfigurerProvider)
                     : injector.createInstance(provider);
 
             List<OkaeriSerdesPack> serdesPackList = Stream.concat(
