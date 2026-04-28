@@ -30,11 +30,6 @@ public class BukkitCreatorRegistry extends ComponentCreatorRegistry {
     public BukkitCreatorRegistry(Injector injector, LightBukkitPlugin plugin) {
         super(injector);
 
-        // Register built-in extensions
-        tryRegisterExtension("me.drownek.platform.bukkit.BukkitConfigsExtension");
-        tryRegisterExtension("me.drownek.platform.bukkit.BukkitLitecommandsExtension");
-        tryRegisterExtension("me.drownek.platform.bukkit.persistence.BukkitPersistenceExtension");
-
         for (LightExtension ext : ExtensionRegistry.getExtensions()) {
             plugin.debug("Registering extension: " + ext.getClass().getSimpleName());
             ext.register(this, injector);
@@ -50,17 +45,5 @@ public class BukkitCreatorRegistry extends ComponentCreatorRegistry {
         // generic last
         this.register(BeanComponentResolver.class);
         this.register(GenericComponentResolver.class);
-    }
-
-    private void tryRegisterExtension(String className) {
-        try {
-            Class<?> clazz = Class.forName(className);
-            LightExtension extension = (LightExtension) clazz.getDeclaredConstructor().newInstance();
-            ExtensionRegistry.register(extension);
-        } catch (ClassNotFoundException | NoClassDefFoundError e) {
-            // Extension not available
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException("Failed to instantiate extension: " + className, e);
-        }
     }
 }

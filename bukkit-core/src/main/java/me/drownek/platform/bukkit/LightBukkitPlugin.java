@@ -17,6 +17,7 @@ import me.drownek.platform.core.plan.ExecutionPlan;
 import me.drownek.platform.core.plan.ExecutionResult;
 import me.drownek.platform.core.plan.ExecutionTask;
 import me.drownek.platform.core.plan.task.*;
+import me.drownek.platform.core.util.ExtensionsUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -92,6 +93,12 @@ public class LightBukkitPlugin extends JavaPlugin implements LightPlatform {
         plan.add(POST_SETUP, new BukkitExternalResourceProviderSetupTask());
         plan.add(POST_SETUP, new BeanManifestCreateTask());
         plan.add(POST_SETUP, new BeanManifestExecuteTask());
+
+        // register built-in extensions before calling ext.plan()
+        // extensions need to add their PRE_SETUP tasks (like CommandSetupTask) before plan execution
+        ExtensionsUtil.tryRegisterExtension("me.drownek.platform.bukkit.BukkitConfigsExtension");
+        ExtensionsUtil.tryRegisterExtension("me.drownek.platform.bukkit.BukkitLitecommandsExtension");
+        ExtensionsUtil.tryRegisterExtension("me.drownek.platform.bukkit.persistence.BukkitPersistenceExtension");
 
         // allow extensions to contribute to the plan
         ExtensionRegistry.getExtensions().forEach(ext -> ext.plan(plan, this));

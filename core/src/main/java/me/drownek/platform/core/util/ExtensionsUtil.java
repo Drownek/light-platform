@@ -1,8 +1,23 @@
 package me.drownek.platform.core.util;
 
+import me.drownek.platform.core.extension.ExtensionRegistry;
+import me.drownek.platform.core.extension.LightExtension;
+
 public class ExtensionsUtil {
 
     private ExtensionsUtil() {}
+
+    public static void tryRegisterExtension(String className) {
+        try {
+            Class<?> clazz = Class.forName(className);
+            LightExtension extension = (LightExtension) clazz.getDeclaredConstructor().newInstance();
+            ExtensionRegistry.register(extension);
+        } catch (ClassNotFoundException | NoClassDefFoundError e) {
+            // Extension not available
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("Failed to instantiate extension: " + className, e);
+        }
+    }
 
     public static boolean isClassPresent(String className) {
         try {
